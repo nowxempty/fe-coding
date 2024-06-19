@@ -22,7 +22,6 @@ const CodeEditorPageHeader = ({ runCode, submitCode, time, handleLanguageChange,
           <button className="header-button" onClick={submitCode}>Submit Code</button>
           <div className="profile">
             <span>Profile</span>
-            <button className="header-button">X</button>
           </div>
         </div>
       </div>

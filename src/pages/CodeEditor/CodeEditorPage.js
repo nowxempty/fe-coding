@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Editor from "@monaco-editor/react";
 import './CodeEditorPage.css';
 import CodeEditorPageHeader from './CodeEditorPageHeader';
-import CodeEditorPageFooter from './CodeEditorPageFooter';
 import RankingModal from './Ranking-Modal/RankingModal';
+import FeedbackPage from '../Feedback/FeedbackPage';
 
 const DEFAULT_CODE = {
   java: `public static String solution(String input){
@@ -33,7 +32,65 @@ const CodeEditorPage = ({ userId, room_Id }) => {
   const [isRankingModalOpen, setIsRankingModalOpen] = useState(false);
   const [language, setLanguage] = useState('java');
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
+  const [showFeedbackPage, setShowFeedbackPage] = useState(false);
+  const [roomId, setRoomId] = useState(0); //test용
+
+  useEffect(() => {
+    const fetchCreateRoom = async () => {
+      try {
+        const response = await fetch('https://salgoo9.site/api/rooms', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+          },
+          body: JSON.stringify({
+            roomTitle: "재빈테스트",
+            averageDifficulty: 2,
+            description: "재빈테스트방입니다",
+            roomStatus: "ONGOING",
+            duration: 50,
+            problems: [14, 15, 16]
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Error in runCode');
+        }
+
+        const data = await response.json();
+        const roomId = data.id;
+        setRoomId(roomId);
+
+        fetchProblems(roomId);
+      } catch (error) {
+        console.log("Error fetchingCreateRoom", error);
+      }
+    };
+
+    const fetchProblems = async (roomId) => {
+      try {
+        const response = await fetch(`https://salgoo9.site/api/problem/${roomId}`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+          },
+        });
+        const data = await response.json();
+        setProblems(data.results);
+        setIsLoading(false);
+        setTimerActive(true);
+      } catch (error) {
+        console.error('Error fetching problems', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchCreateRoom();
+  }, []);
 
   useEffect(() => {
     let timerHandle;
@@ -46,30 +103,6 @@ const CodeEditorPage = ({ userId, room_Id }) => {
   }, [timerActive]);
 
   useEffect(() => {
-    const fetchProblems = async () => {
-      try {
-        const response = await fetch('https://salgoo9.site/api/problem/6', { // `https://salgoo9.site/api/problem/${room_Id}`
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoiamhjOTkxMjE1MCIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzE4NzYyMjY3LCJleHAiOjE3MTg4NDg2Njd9.sySds2iFSry1YdXXNyBTwSH0E3R8dhmfsA2Is5jwx6I'
-            },
-        }); 
-        const data = await response.json();
-        setProblems(data.results);
-        setIsLoading(false);
-        setTimerActive(true);
-      } catch (error) {
-        console.error('Error fetching problems', error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchProblems();
-  }, [userId, room_Id]);
-
-  useEffect(() => {
     setCode(DEFAULT_CODE[language]);
   }, [currentProblemIndex, language]);
 
@@ -80,11 +113,11 @@ const CodeEditorPage = ({ userId, room_Id }) => {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoiamhjOTkxMjE1MCIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzE4NzYyMjY3LCJleHAiOjE3MTg4NDg2Njd9.sySds2iFSry1YdXXNyBTwSH0E3R8dhmfsA2Is5jwx6I'
+          'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
         },
         body: JSON.stringify({
-          roomId: 12, //room_id
-          problemId: 6, //problems[currentProblemIndex]?.id,
+          roomId: roomId, //room_id
+          problemId: problems[0][currentProblemIndex]?.id, //problems[currentProblemIndex]?.id,
           code: code,
           compileLanguage: language,
           time: time,
@@ -111,11 +144,11 @@ const CodeEditorPage = ({ userId, room_Id }) => {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoiamhjOTkxMjE1MCIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzE4NzYyMjY3LCJleHAiOjE3MTg4NDg2Njd9.sySds2iFSry1YdXXNyBTwSH0E3R8dhmfsA2Is5jwx6I'
+          'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
         },
         body: JSON.stringify({
-          roomId: 12,  //room_Id
-          problemId: 6, //problems[currentProblemIndex]?.id,
+          roomId: roomId,  //room_Id
+          problemId: problems[0][currentProblemIndex]?.id, //problems[currentProblemIndex]?.id,
           code: code,
           compileLanguage: language,
           time: time,
@@ -135,6 +168,12 @@ const CodeEditorPage = ({ userId, room_Id }) => {
 
   const handleCloseModal = () => {
     setIsRankingModalOpen(false);
+    setShowFeedbackPage(true);
+  };
+  
+
+  const handleFeedbackComplete = () => {
+    setShowFeedbackPage(false);
     if (currentProblemIndex + 1 < problems[0].length) {
         const newIndex = currentProblemIndex + 1;
         setCurrentProblemIndex(newIndex);
@@ -143,13 +182,19 @@ const CodeEditorPage = ({ userId, room_Id }) => {
         setTime(0);
         setTimerActive(true);
     } else {
-      navigate('/feedback');
+        // 모든 문제가 끝난 경우
+        console.log('All problems completed');
     }
   };
 
   const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage);
     setCode(DEFAULT_CODE[newLanguage]);
+  };
+
+  if (showFeedbackPage) {
+    return <FeedbackPage userId={6} roomId={roomId} problemId={problems[0][currentProblemIndex]?.id} currentProblemIndex={currentProblemIndex} onComplete={handleFeedbackComplete} />;
+  //userId 부분 수정
   }
 
   return (
@@ -183,26 +228,28 @@ const CodeEditorPage = ({ userId, room_Id }) => {
                   </li>
                 ))}</div>
               </div>
-              <div className="editor-container">
-                <Editor
-                    height="90vh"
-                    language={language}
-                    value={code}
-                    theme="vs-dark"
-                    onChange={(value, event) => setCode(value)}
-                  />
-              </div>
-              <div className="result-container">
-                <h3>Result</h3>
-                <pre>{result}</pre>
+              <div className="right-section">
+                <div className="editor-container">
+                  <Editor
+                      height="50vh"
+                      width="65vw"
+                      language={language}
+                      value={code}
+                      theme="vs-dark"
+                      onChange={(value, event) => setCode(value)}
+                    />
+                </div>
+                <div className="result-container">
+                  <h3>Result</h3>
+                  <pre className="resultValue">{result}</pre>
+                </div>
               </div>
             </div>
           </div>
-          <CodeEditorPageFooter />
           <RankingModal
             isOpen={isRankingModalOpen}
             onClose={handleCloseModal}
-            roomId={room_Id}
+            roomId={roomId} //room_Id
             problemId={problems[0][currentProblemIndex]?.id}
           />
         </>
