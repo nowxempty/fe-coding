@@ -1,0 +1,118 @@
+/* FeedbackPage.css */
+
+.feedback-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .feedback-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #263238;
+    color: #ECEFF1;
+  }
+  
+  .feedback-page-header .profile {
+    display: flex;
+    align-items: center;
+  }
+  
+  .feedback-page-header .profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .feedback-page-header .close-btn {
+    background: none;
+    border: none;
+    color: #ECEFF1;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .feedback-page-sub-header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    background-color: #37474F;
+    color: #ECEFF1;
+  }
+  
+  .feedback-page-sub-header .problem-select {
+    display: flex;
+    align-items: center;
+  }
+  
+  .feedback-page-sub-header .problem-select button {
+    background-color: #546E7A;
+    border: none;
+    color: #ECEFF1;
+    padding: 8px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .feedback-page-sub-header .problem-select button:hover {
+    background-color: #455A64;
+  }
+  
+  .feedback-page-content {
+    flex: 1;
+    display: flex;
+    padding: 20px;
+    background-color: #263238;
+    color: #ECEFF1;
+  }
+  
+  .feedback-page-content .problem-container {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .feedback-page-content .problem-container h2 {
+    margin-bottom: 10px;
+  }
+  
+  .feedback-page-content .editor-container {
+    flex: 2;
+    margin-right: 20px;
+  }
+  
+  .feedback-page-content .result-container {
+    flex: 1;
+  }
+  
+  .feedback-page-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #263238;
+    color: #ECEFF1;
+  }
+  
+  .feedback-page-footer .user-select {
+    display: flex;
+    align-items: center;
+  }
+  
+  .feedback-page-footer .user-select button {
+    background-color: #546E7A;
+    border: none;
+    color: #ECEFF1;
+    padding: 8px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .feedback-page-footer .user-select button:hover {
+    background-color: #455A64;
+  }
+  

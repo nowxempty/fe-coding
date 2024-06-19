@@ -1,0 +1,144 @@
+/* 기본 스타일 설정 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 코드 에디터 페이지 전체 레이아웃 */
+.code-editor-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* 헤더 스타일 */
+.code-editor-header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+.code-editor-header .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.code-editor-header .actions {
+    display: flex;
+    gap: 10px;
+}
+
+.header-button {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.header-button:hover {
+    background-color: #777;
+}
+
+.code-editor-header .profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.code-editor-header .bottom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.language-selector {
+    position: relative;
+}
+
+.language-button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.language-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.language-dropdown {
+    position: absolute;
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 0;
+    list-style: none;
+    z-index: 1000;
+}
+
+.language-dropdown li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.language-dropdown li:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 콘텐츠 영역 스타일 */
+.content {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    background-color: #f5f5f5;
+    overflow: auto;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+}
+
+.problem-container, .editor-container, .result-container {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.problem-container h2, .result-container h3 {
+    margin-top: 0;
+}
+
+/* 푸터 스타일 */
+.code-editor-footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/* 결과 영역 스타일 */
+.result-container pre {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
