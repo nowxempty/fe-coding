@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './RankingModal.css';
 
-const RankingModal = ({ isOpen, onClose }) => {
+const RankingModal = ({ isOpen, onClose, roomId, problemId }) => {
     const [rankings, setRankings] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -11,12 +11,12 @@ const RankingModal = ({ isOpen, onClose }) => {
     useEffect(() => {
         const fetchRankings = async () => {
             try {
-                const response = await fetch('https://salgoo9.site/api/rooms/2/score?problemId=6', { //`https://salgoo9.site/api/${room_id}/score?problemId=${problemId}
+                const response = await fetch(`https://salgoo9.site/api/${roomId}/score?problemId=${problemId}`, { //`https://salgoo9.site/api/${room_id}/score?problemId=${problemId}
                     method: 'GET',
                     credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
-                        'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoiamhjOTkxMjE1MCIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzE4Njc1MjY3LCJleHAiOjE3MTg3NjE2Njd9.bZzG1rqtlmYcgOqHbfOBWpDpfv4_IPmpdffdckiYNLA'
+                        'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
                     },
                 });
                 const data = await response.json();
@@ -45,7 +45,7 @@ const RankingModal = ({ isOpen, onClose }) => {
             }, 5000);
             return () => clearTimeout(timer);
         }
-    }, [isOpen, onClose]);
+    }, [isOpen, onClose, roomId, problemId]);
 
     if (!isOpen) return null;
 

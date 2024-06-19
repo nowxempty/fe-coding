@@ -22,12 +22,11 @@ const CodeEditorPageHeader = ({ runCode, submitCode, time, handleLanguageChange,
           <button className="header-button" onClick={submitCode}>Submit Code</button>
           <div className="profile">
             <span>Profile</span>
-            <button className="header-button">X</button>
           </div>
         </div>
       </div>
       <div className="bottom-header">
-        <div className="problem-indicator">Problem {currentProblemIndex + 1}</div>
+        <div className="problem-indicator">문제 {currentProblemIndex + 1}</div>
         <div className="language-selector">
           <button onClick={toggleDropdown} className="header-button">
             Language: {selectedLanguage} ▼

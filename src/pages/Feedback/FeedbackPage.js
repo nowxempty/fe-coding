@@ -1,115 +1,162 @@
 import React, { useEffect, useState } from 'react';
+import Chatting from '../../components/Chatting/Chatting'
 import './FeedbackPage.css';
-import FeedbackPageHeader from './FeedbackPageHeader';
-import FeedbackPageFooter from './FeedbackPageFooter';
 
-const FeedbackPage = ({ room_Id }) => {
-    const [problemId, setProblemId] = useState(6);
-    const [problems, setProblems] = useState([]);
-    const [selectedUser, setSelectedUser] = useState(null);
-    const [feedbackData, setFeedbackData] = useState([]);
-    const [selectedProblemIndex, setSelectedProblemIndex] = useState(0);
+const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComplete }) => {
+  const [problems, setProblems] = useState(null);
+  const [feedbackData, setFeedbackData] = useState([]);
+  const [selectedUserIndex, setSelectedUserIndex] = useState(null);
+  const [selectedUserCode, setSelectedUserCode] = useState('');
+
+
+  useEffect(() => {
+    const fetchProblems = async () => {
+      try {
+        const response = await fetch(`https://salgoo9.site/api/problem/${roomId}`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+          },
+        });
+        const data = await response.json();
+        setProblems(data.results);
+      } catch (error) {
+        console.error('Error fetching problems in FeedbackPage', error);
+      }
+    };
+
+    const fetchFeedbackData = async () => {
+      try {
+        const response = await fetch('https://salgoo9.site/api/code', {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+          },
+          body: JSON.stringify({
+            roomId: roomId,
+            problemId: problemId,
+          }),
+        });
+        const data = await response.json();
+        setFeedbackData(data.results);
+      } catch (error) {
+        console.error('Error fetching FeedbackData', error);
+      }
+    };
     
-    useEffect(() => {
-        const fetchProblems = async () => {
-            try {
-                const response = await fetch('https://salgoo9.site/api/problem/6', { //`https://salgoo9.site/api/problem/${room_Id}`
-                    method: 'GET',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
-                    },
-                });
-                const data = await response.json();
-                setProblems(data.results);
-            } catch (error) {
-                console.error('Error fetching problems', error);
-            }
-        };
+    fetchProblems();
+    fetchFeedbackData();
+  }, [problemId, roomId]);
 
-        fetchProblems();
-    }, [room_Id]);
+  const handleCompleteClick = async () => { //API 개발 완료 되면 수정
+    try {
+      const response = await fetch('https://yourserver.com/api/feedback/complete', {
+        method: 'POST',  // 수정: GET -> POST
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+        },
+        body: JSON.stringify({
+          roomId: roomId,
+          problemId: problemId,
+        }),
+      });
 
-    useEffect(() => {
-        if (selectedUser) {
-            const fetchFeedbackData = async () => {
-                try {
-                    const response = await fetch('https://salgoo9.site/api/code', {
-                        method: 'GET',
-                        credentials: 'include',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
-                        },
-                        body: JSON.stringify({
-                            roomId: room_Id,
-                            problemId: problemId,
-                        })
-                    });
+      if (!response.ok) {
+        throw new Error('Error Fetching handleCompleteClick');
+      }
+    } catch (error) {
+      console.error('Error Fetching handleCompleteClick', error);
+    }
 
-                    const data = await response.json();
-                    setFeedbackData(data.results);
-                } catch (error) {
-                    console.error('Error fetching feedback Data', error);
-                }
-            };
-
-            fetchFeedbackData();
+    const intervalId = setInterval(async () => { //API 개발 완료 되면 수정
+      try {
+        const response = await fetch(`https://yourserver.com/api/feedback/status?roomId=${roomId}`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+          }
+        });
+        const data = await response.json();
+        if (data.allUsersCompleted) {
+          clearInterval(intervalId);
+          onComplete();
         }
-    }, [selectedUser, problemId, room_Id]);
+      } catch (error) {
+        console.error('Error Get Complete', error);
+      }
+    }, 1000);
+  };
 
-    const handleUserSelection = (userName) => {
-        setSelectedUser(userName);
-    };
+  const handleUserClick = (index) => {
+    setSelectedUserIndex(index);
+    const userData = feedbackData[index];
+    setSelectedUserCode(userData ? userData.code : '');
+  };
 
-    const handleProblemSelection = (index) => {
-        setSelectedProblemIndex(index);
-        setProblemId(problems[index]?.id);
-    };
+  
 
-    return (
-        <div className="feedback-page">
-          <FeedbackPageHeader
-            selectedProblemIndex={selectedProblemIndex}
-            problems={problems}
-            onProblemSelect={handleProblemSelection}
-          />
-          <div className="content">
-            <div className="problem-container">
-              <h2>Problem</h2>
-              {problems.length > 0 && problems[selectedProblemIndex] ? (
-                <>
-                  <h3>{problems[selectedProblemIndex].title}</h3>
-                  <div>{problems[selectedProblemIndex].context}</div>
-                </>
-              ) : (
-                <p>Loading problem...</p>
-              )}
-            </div>
-            <div className="code-container">
-              <h2>Code</h2>
-              {feedbackData.length > 0 && selectedUser ? (
-                feedbackData.map((data, index) => (
-                  data.userName === selectedUser && (
-                    <pre key={index}>{data.code}</pre>
-                  )
-                ))
-              ) : (
-                <p>Select a user to view their code</p>
-              )}
-            </div>
-            <div className="chat-container">
-              <h2>Chat</h2>
-              <p>Chat will be displayed here.</p>
-            </div>
-          </div>
-          <FeedbackPageFooter
-            feedbackData={feedbackData}
-            onUserSelect={handleUserSelection}
-          />
+  return (
+    <div className="feedback-page">
+      <div className="feedback-header">
+        <div className="feedback-header-left">
+          {feedbackData && feedbackData.map((feedback, index) => (
+            <button
+              key={index}
+              onClick={() => handleUserClick(index)}
+            >
+              {feedback.userName}
+            </button>
+          ))}
         </div>
-      );
+        <div className="feedback-header-right">
+          <button onClick={handleCompleteClick}>피드백 완료</button>
+          <div className="user-profile">{userId}</div>
+        </div>
+      </div>
+      <div className="feedback-content">
+        <div className="problem-container">
+          {problems && problems[currentProblemIndex] && (
+            <>
+              <h2>문제</h2>
+              <h3>{problems[currentProblemIndex].title}</h3>
+              <div>{problems[currentProblemIndex].context}</div>
+              <div>
+                <div><strong>입력:</strong> {problems[currentProblemIndex].input}</div>
+                <div><strong>출력:</strong> {problems[currentProblemIndex].output}</div>
+              </div>
+              <div>
+                {problems[currentProblemIndex].testCases && problems[currentProblemIndex].testCases.map((testCase, index) => (
+                  <li key={index}>
+                    <strong>Input:</strong> {testCase.input}<br />
+                    <strong>Output:</strong> {testCase.output}
+                  </li>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+        <div className="code-container">
+          {selectedUserIndex !== null && (
+            <>
+              <h2>{feedbackData[selectedUserIndex].userName}의 코드</h2>
+              <pre>{selectedUserCode}</pre>
+            </>
+          )}
+        </div>
+        <div className="chat-container">
+          <Chatting />
+        </div>
+      </div>
+    </div>
+  );
 };
-    
+
 export default FeedbackPage;

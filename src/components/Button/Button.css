@@ -1,0 +1,35 @@
+.button {
+    all: unset;
+    background-color: #4679FD;;
+    color: white;
+    border-radius: 7px;
+    box-sizing: border-box;
+    height: 40px;
+    position: relative;
+  }
+  
+  .button:hover{
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  
+  .button .text {
+    display: flex;
+    color: #ffffff;
+    font-family: "Inter", Helvetica;
+    font-size: 16px;
+    font-weight: 600;
+    height: 40px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .button:active {
+    background-color: #365fbf; 
+    transform: scale(0.98); 
+    transition: background-color 0.1s ease, transform 0.1s ease;
+  }
