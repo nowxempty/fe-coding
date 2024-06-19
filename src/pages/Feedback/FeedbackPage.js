@@ -52,7 +52,7 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
     fetchFeedbackData();
   }, [problemId, roomId]);
 
-  const handleCompleteClick = async () => {
+  const handleCompleteClick = async () => { //API 개발 완료 되면 수정
     try {
       const response = await fetch('https://yourserver.com/api/feedback/complete', {
         method: 'POST',  // 수정: GET -> POST
@@ -74,7 +74,7 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
       console.error('Error Fetching handleCompleteClick', error);
     }
 
-    const intervalId = setInterval(async () => {
+    const intervalId = setInterval(async () => { //API 개발 완료 되면 수정
       try {
         const response = await fetch(`https://yourserver.com/api/feedback/status?roomId=${roomId}`, {
           method: 'GET',

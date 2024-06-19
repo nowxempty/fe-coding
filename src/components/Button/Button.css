@@ -29,7 +29,7 @@
   }
 
   .button:active {
-    background-color: #365fbf; /* 踰꾪듉�� �뚮졇�� �� �대몢�� �� */
-    transform: scale(0.98); /* �댁쭩 �뚮━�� �④낵 */
+    background-color: #365fbf; 
+    transform: scale(0.98); 
     transition: background-color 0.1s ease, transform 0.1s ease;
   }
