@@ -1,0 +1,96 @@
+.Join_page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh; /* 화면 전체 높이를 사용 */
+  margin-top: 200px;
+  text-align: center; 
+  
+}
+
+.Join_Body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 1000px;
+  height: 1000px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.Join_WebIde {
+  font-size: 70px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  
+}
+
+.Join_submitButton {
+  margin-bottom: 10px;
+}
+
+.Join_InputBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  height: 80%;
+}
+
+.Join_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  
+}
+
+.Join_Name, .Join_Id, .Join_Password, .Join_PasswordCheck, .Join_Nickname ,.Join_Terms{
+  margin-bottom: 10px;
+  height: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  
+}
+
+.Join_inputField,.Join_Terms button  {
+  height: 100%; /*!important : 다른 스타일을 무시하고 해당 스타일을 우선 적용 */
+  width: 80%;
+  font-size: 30px;
+}
+
+.Join_accountLink {
+  margin-top: 10px;
+}
+
+.Join_Link {
+  margin-left: 5px;
+  color: blue;
+  text-decoration: none;
+}
+
+.Join_Link:hover {
+  text-decoration: underline;
+}
+
+.Join_submitButton{
+  background: #4679FD;
+  color: white;
+}
+
+.Join_submitButton:active {
+  background-color: #6A93FE;
+}
+
+.Join_container input {
+  padding-left: 20px;
+  padding-right: 20px;
+}

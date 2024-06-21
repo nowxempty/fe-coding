@@ -15,9 +15,7 @@
   
   .button .text {
     display: flex;
-    color: #ffffff;
     font-family: "Inter", Helvetica;
-    font-size: 16px;
     font-weight: 600;
     height: 40px;
     letter-spacing: 0;
@@ -29,7 +27,7 @@
   }
 
   .button:active {
-    background-color: #365fbf; 
-    transform: scale(0.98); 
+    background-color: #365fbf; /* 버튼이 눌렸을 때 어두운 색 */
+    transform: scale(0.98); /* 살짝 눌리는 효과 */
     transition: background-color 0.1s ease, transform 0.1s ease;
   }

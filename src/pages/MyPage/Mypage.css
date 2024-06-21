@@ -1,0 +1,222 @@
+.MyPage_container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 화면의 전체 높이 */
+    overflow: hidden;
+  }
+
+/* Nav 스타일 설정 */
+.Nav {
+    flex: 0 1 auto; /* 내용에 맞게 높이 조정 */
+  }
+
+  
+.MyPage {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1440px;
+    height: 75vh;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 1 auto; /* 가능한 모든 공간 차지 */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.MyPage_Proflie {
+    flex-grow: 2;
+    margin-top: 50px;
+    margin-left: 40px;
+    width: 300px;
+    height: 700px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    
+}
+
+.MyPage_Proflie_img {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(0deg, #d9d9d9 0%, #d9d9d9 100%);
+    border-radius: 9999px;
+    background: white;
+}
+
+.MyPage_User_name {
+    width: 174px;
+    height: 70px;
+    color: black;
+    font-size: 40px;
+    font-family: Inter;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.MyPage_Lv {
+    color: black;
+    font-size: 25px;
+    font-family: Inter;
+    font-weight: 400;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.MyPage_Exp {
+    position: relative;
+    width: 176px;
+    height: 13px;
+    margin-top: 10px;
+}
+
+.MyPage_TotalExp,
+.MyPage_NowExp {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.MyPage_TotalExp {
+    background: #d9d9d9;
+}
+
+.MyPage_NowExp {
+    width: 77%;
+    background: #63dd38;
+}
+
+.MyPage_button {
+    width: 205.33px;
+    height: 48.52px;
+    background: #4679fd;
+    border-radius: 5px;
+    color: white;
+    font-size: 25px;
+    font-family: Inter;
+    font-weight: 400;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.MyPage_RecentWork {
+    flex-grow: 2;
+    width: 949.01px;
+    height: 650px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.MyPage_RecentWork_title {
+    width: 100%;
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    text-align: left;
+    margin-bottom: 20px;
+    margin-left: 90px;
+    padding-left: 0px;
+}
+
+.MyPage_Group38 {
+    width: 948px;
+    height: 90%;
+    background: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.MyPage_Rectangle26 {
+    width: 100%;
+    height: 83px;
+    background: #eaeaea;
+    border-radius: 5px;
+    border: 1px black solid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.MyPage_problemName{
+    flex: 0.8;
+    margin-left: 10px;
+}
+.MyPage_durationTile{
+    flex:0.8;
+    margin-left: 10px;
+}
+.MyPage_solve{
+    flex:0.9;
+    margin-left: 30px;
+}
+.MyPage_submitTime{
+    flex: 1;
+}
+.MyPage_Rectangle26 > div {
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    word-wrap: break-word;
+    padding: 0 10px;
+    
+}
+
+.MyPage_Rectangle3 {
+    width: 100%;
+    height: 579px;
+    background: white;
+    border: 1px black solid;
+    margin-bottom: 20px;
+    overflow: scroll;
+}
+
+.MyPage_button:active{
+    background: #4679fd;
+}
+
+.Mypage_item{
+    border: 3px solid white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 20%;
+    background: #4679fd;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+    border: 1px black solid;
+}
+
+.Mypage_item > div {
+    flex: 1;
+    color: white;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    word-wrap: break-word;
+    padding: 0 10px;
+}

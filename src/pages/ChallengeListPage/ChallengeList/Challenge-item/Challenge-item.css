@@ -1,0 +1,138 @@
+/* Challenge-item.css */
+
+.Challenge_item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 80vh;
+    overflow: hidden;
+    width: 100%;
+    max-width: 979.8px;
+    margin-top: 20px;
+    border: 2px solid #EAEAEA;
+}
+
+.Challenge_header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    border-bottom: 1px solid #ccc;
+    height: 45px;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.Challenge_item .Challenge_header .reset_button {
+    display: flex;
+    position: relative;
+    border-radius: 5px;
+    height: 35px;
+    width: 55%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    color: #75777b;
+}
+
+.Challenge_list_item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-weight: bold;
+    align-items: center;
+    font-size: 18px;
+    height: 60px;
+}
+
+.Challenge_list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.Challenge_list::-webkit-scrollbar {
+    width: 5px; /* 스크롤바 너비 조정 */
+}
+
+.Challenge_list::-webkit-scrollbar-thumb {
+    background-color: #d8d8d8; /* 스크롤바 색상 */
+    border-radius: 10px; /* 스크롤바 둥글게 */
+}
+
+.Challenge_list::-webkit-scrollbar-thumb:hover {
+    background: #555; /* 스크롤바 호버 색상 */
+}
+
+.Challenge_list_item {
+    font-weight: normal;
+}
+
+.Challenge_list_item div,
+.Challenge_header div {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.Challenge_header div span {
+    display: flex;
+    align-items: center;
+}
+
+.Challenge_header :hover {
+    opacity: 0.5;
+}
+
+.Challenge_list .Challenge_list_item .title,
+.Challenge_list .Challenge_list_item .creator {
+    font-weight: 600;
+}
+
+.Challenge_item .Challenge_header .title,
+.Challenge_list .Challenge_list_item .title {
+    flex: 2;
+}
+
+.difficulty{
+    font-size: 18px !important;
+    font-weight: 500;
+}
+
+.difficulty.silver {
+    color: #716e89;
+    font-weight: 500;
+}
+
+.difficulty.gold {
+    color: #c6c62c;
+    font-weight: 500;
+}
+
+.difficulty.bronze {
+    color: #cc7620;
+    font-weight: 500;
+}
+
+
+.creator {
+    color: black;
+}
+
+.participants_button {
+    width: 80px;
+    border: solid 2px #a8a4a4;
+}
+
+.participants {
+    width: 80px;
+    color: #4679fd;
+    font-weight: 600;
+}
+
+.participants.full {
+    color: red;
+}

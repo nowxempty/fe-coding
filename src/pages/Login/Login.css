@@ -1,0 +1,113 @@
+.Login_page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center; 
+}
+
+.Login_leftSction{
+  display: flex;
+  width: 65%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.Login_leftSction h1{
+  font-size: 300px;
+}
+
+.Login_Body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 35%;
+  height: 100vh;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.Login_WebIde {
+  font-size: 40px;
+  font-weight: bold;
+  
+}
+
+.Login_Button {
+  color: white;
+  background: #4679FD ;
+  width: 255px !important;
+  height: 35px;
+  padding: 0;
+  border: 0;
+  margin-top: 2px;
+  border-radius: 4px;
+}
+
+.Login_InputBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+}
+
+.Login_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 13vh;
+  width: 100%;
+  
+}
+
+.Login_Id, .Login_Pw {
+  height: 35px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  
+}
+
+.Login_Btn {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+.Login_Id input, .Login_Pw input,.Login_Btn button  {
+  height: 100%; 
+  width: 80%;
+  font-size: 16px;
+}
+
+.Login_CreateAccount {
+  margin-top: 10px;
+}
+
+.Login_CreateAccount span, .Login_CreateAccount .Login_Link{
+  font-size: 15px;
+}
+
+.Login_Link {
+  margin-left: 5px;
+  color: #4679FD;
+  text-decoration: none;
+}
+
+.Login_Link:hover {
+  text-decoration: underline;
+}
+/*버튼을 클릭 하는 순간에는 색이 변한다.*/
+.Login_Button:active {
+  background-color: #6A93FE;
+  transform: scale(0.98);
+}
+
