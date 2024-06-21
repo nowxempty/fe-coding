@@ -4,7 +4,7 @@ import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 import Button from '../Button/Button';
 // import Arrow from '../Icon/arrow.js';
-import { ArrowRight } from "react-icons";
+import { FaArrowRight } from 'react-icons/fa';
 import './Chatting.css';
 
 const Chatting = ({ userName,access_Token }) => {
@@ -113,7 +113,7 @@ const Chatting = ({ userName,access_Token }) => {
                     className="button" 
                     divClassName="text" 
                     onClick={handleSendMessage} 
-                    icon={<ArrowRight />}
+                    icon={<FaArrowRight />}
                 />
             </div>
         </div>
