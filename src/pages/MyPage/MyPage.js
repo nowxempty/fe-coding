@@ -97,7 +97,7 @@ function MyPage({userInfoms,access_Token,setProblem,setAccessToken,setUserInfo,i
 
     return (
         <div className='MyPage_container'>
-            <Header access_Token={access_Token} userInfoms={userInfoms} setAccessToken={setAccessToken} image={profileImage} name = {user_name}/>
+            <Header access_Token={access_Token} userInfoms={userInfoms} setAccessToken={setAccessToken} image={profileImage} name = {user_name} level={user_level}/>
             <div className="MyPage">
                 <div className="MyPage_Proflie">
                     <img className="MyPage_Proflie_img" src={profileImage ? profileImage : defaultImage} alt="프로필 사진" />
