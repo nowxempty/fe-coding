@@ -1,0 +1,27 @@
+.user-list {
+    position: relative;
+    border: 1.5px solid #d2d2d2;
+    height: 47vh;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.user-list-title {
+    margin-bottom: 1vh;
+    color: #4679FD;
+}
+
+.user-item-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+    justify-items: center;
+    margin: auto;
+}

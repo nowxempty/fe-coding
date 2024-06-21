@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Editor from "@monaco-editor/react";
 import './CodeEditorPage.css';
 import CodeEditorPageHeader from './CodeEditorPageHeader';
-import RankingModal from './Ranking-Modal/RankingModal';
+import AllCompletedModal from './CodeEditor-Modal/AllCompletedModal';
+import RankingModal from './CodeEditor-Modal/RankingModal';
 import FeedbackPage from '../Feedback/FeedbackPage';
 
 const DEFAULT_CODE = {
@@ -22,7 +23,7 @@ const DEFAULT_CODE = {
 }`
 };
 
-const CodeEditorPage = ({ userId, room_Id }) => {
+const CodeEditorPage = ({ userId, roomId, access_Token }) => {
   const [code, setCode] = useState(DEFAULT_CODE.java);
   const [result, setResult] = useState('');
   const [problems, setProblems] = useState([]);
@@ -33,52 +34,20 @@ const CodeEditorPage = ({ userId, room_Id }) => {
   const [language, setLanguage] = useState('java');
   const [isLoading, setIsLoading] = useState(true);
   const [showFeedbackPage, setShowFeedbackPage] = useState(false);
-  const [roomId, setRoomId] = useState(0); //test용
+  const [isAllCompletedModalOpen, setIsAllCompletedModalOpen] = useState(false);
+
 
   useEffect(() => {
-    const fetchCreateRoom = async () => {
-      try {
-        const response = await fetch('https://salgoo9.site/api/rooms', {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
-          },
-          body: JSON.stringify({
-            roomTitle: "재빈테스트",
-            averageDifficulty: 2,
-            description: "재빈테스트방입니다",
-            roomStatus: "ONGOING",
-            duration: 50,
-            problems: [14, 15, 16]
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Error in runCode');
-        }
-
-        const data = await response.json();
-        const roomId = data.id;
-        setRoomId(roomId);
-
-        fetchProblems(roomId);
-      } catch (error) {
-        console.log("Error fetchingCreateRoom", error);
-      }
-    };
-
-    const fetchProblems = async (roomId) => {
+    const fetchProblems = async () => {
       try {
         const response = await fetch(`https://salgoo9.site/api/problem/${roomId}`, {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
-          },
-        });
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'access': access_Token
+            },
+        }); 
         const data = await response.json();
         setProblems(data.results);
         setIsLoading(false);
@@ -89,8 +58,8 @@ const CodeEditorPage = ({ userId, room_Id }) => {
       }
     };
 
-    fetchCreateRoom();
-  }, []);
+    fetchProblems();
+  }, [userId, roomId, access_Token]);
 
   useEffect(() => {
     let timerHandle;
@@ -113,11 +82,11 @@ const CodeEditorPage = ({ userId, room_Id }) => {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+          'access': access_Token
         },
         body: JSON.stringify({
-          roomId: roomId, //room_id
-          problemId: problems[0][currentProblemIndex]?.id, //problems[currentProblemIndex]?.id,
+          roomId: roomId,
+          problemId: problems[0][currentProblemIndex]?.id,
           code: code,
           compileLanguage: language,
           time: time,
@@ -144,11 +113,11 @@ const CodeEditorPage = ({ userId, room_Id }) => {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+          'access': access_Token
         },
         body: JSON.stringify({
-          roomId: roomId,  //room_Id
-          problemId: problems[0][currentProblemIndex]?.id, //problems[currentProblemIndex]?.id,
+          roomId: roomId,  
+          problemId: problems[0][currentProblemIndex]?.id,
           code: code,
           compileLanguage: language,
           time: time,
@@ -182,8 +151,7 @@ const CodeEditorPage = ({ userId, room_Id }) => {
         setTime(0);
         setTimerActive(true);
     } else {
-        // 모든 문제가 끝난 경우
-        console.log('All problems completed');
+        setIsAllCompletedModalOpen(true);   
     }
   };
 
@@ -193,8 +161,7 @@ const CodeEditorPage = ({ userId, room_Id }) => {
   };
 
   if (showFeedbackPage) {
-    return <FeedbackPage userId={6} roomId={roomId} problemId={problems[0][currentProblemIndex]?.id} currentProblemIndex={currentProblemIndex} onComplete={handleFeedbackComplete} />;
-  //userId 부분 수정
+    return <FeedbackPage userId={userId} roomId={roomId} problemId={problems[0][currentProblemIndex]?.id} currentProblemIndex={currentProblemIndex} onComplete={handleFeedbackComplete} access_Token={access_Token} />;
   }
 
   return (
@@ -241,7 +208,37 @@ const CodeEditorPage = ({ userId, room_Id }) => {
                 </div>
                 <div className="result-container">
                   <h3>Result</h3>
-                  <pre className="resultValue">{result}</pre>
+                  {(() => {
+                    try {
+                      const parsedResult = JSON.parse(result);
+                      return (
+                        <div>
+                          {parsedResult.map((item, index) => (
+                            <div key={index} className="result-item">
+                              <p>잘못된 카운트 횟수: {item.wrongCount}</p>
+                              <p>테스트 케이스:</p>
+                              <pre>
+                                {Object.entries(item.testCase).map(([key, value]) => (
+                                  <div key={key}>{key}: {value}</div>
+                                ))}
+                              </pre>
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    } catch (error) {
+                      const parsedResult = JSON.parse(result);                    
+                      return (
+                        <div>
+                          {parsedResult.map((item, index) => (
+                            <div key={index} className="result-item">
+                              <p>잘못된 카운트 횟수: {item.wrongCount}</p>
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    }
+                  })}
                 </div>
               </div>
             </div>
@@ -249,8 +246,13 @@ const CodeEditorPage = ({ userId, room_Id }) => {
           <RankingModal
             isOpen={isRankingModalOpen}
             onClose={handleCloseModal}
-            roomId={roomId} //room_Id
+            roomId={roomId}
             problemId={problems[0][currentProblemIndex]?.id}
+            access_Token={access_Token}
+          />
+          <AllCompletedModal
+          isOpen={isAllCompletedModalOpen}
+          onClose={() => setIsAllCompletedModalOpen(false)}
           />
         </>
       )}

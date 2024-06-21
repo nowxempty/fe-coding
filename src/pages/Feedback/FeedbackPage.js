@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Chatting from '../../components/Chatting/Chatting'
 import './FeedbackPage.css';
+import UserProfileIcon from '../../components/Icon/UserProfileIcon';
 
-const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComplete }) => {
+const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComplete, access_Token }) => {
   const [problems, setProblems] = useState(null);
   const [feedbackData, setFeedbackData] = useState([]);
   const [selectedUserIndex, setSelectedUserIndex] = useState(null);
-  const [selectedUserCode, setSelectedUserCode] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+  const hostName = location.state?.hostName || '';
+
 
 
   useEffect(() => {
@@ -17,7 +22,7 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
-            'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+            'access': access_Token
           },
         });
         const data = await response.json();
@@ -29,17 +34,13 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
 
     const fetchFeedbackData = async () => {
       try {
-        const response = await fetch('https://salgoo9.site/api/code', {
+        const response = await fetch(`https://salgoo9.site/api/code/${roomId}?problemId=${problemId}`, {
           method: 'GET',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
-            'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+            'access': access_Token
           },
-          body: JSON.stringify({
-            roomId: roomId,
-            problemId: problemId,
-          }),
         });
         const data = await response.json();
         setFeedbackData(data.results);
@@ -50,21 +51,18 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
     
     fetchProblems();
     fetchFeedbackData();
-  }, [problemId, roomId]);
+    setIsLoading(false);
+  }, [problemId, roomId, access_Token]);
 
-  const handleCompleteClick = async () => { //API 개발 완료 되면 수정
+  const handleCompleteClick = async () => {
     try {
-      const response = await fetch('https://yourserver.com/api/feedback/complete', {
-        method: 'POST',  // 수정: GET -> POST
+      const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/ready`, {
+        method: 'POST', 
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+          'access': access_Token
         },
-        body: JSON.stringify({
-          roomId: roomId,
-          problemId: problemId,
-        }),
       });
 
       if (!response.ok) {
@@ -74,18 +72,19 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
       console.error('Error Fetching handleCompleteClick', error);
     }
 
-    const intervalId = setInterval(async () => { //API 개발 완료 되면 수정
+    const intervalId = setInterval(async () => {
       try {
-        const response = await fetch(`https://yourserver.com/api/feedback/status?roomId=${roomId}`, {
+        const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/feedback`, {
           method: 'GET',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
-            'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+            'access': access_Token
           }
         });
         const data = await response.json();
-        if (data.allUsersCompleted) {
+        const allUsersCompleted = data.results
+        if (allUsersCompleted[0]) {
           clearInterval(intervalId);
           onComplete();
         }
@@ -97,14 +96,14 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
 
   const handleUserClick = (index) => {
     setSelectedUserIndex(index);
-    const userData = feedbackData[index];
-    setSelectedUserCode(userData ? userData.code : '');
   };
-
-  
 
   return (
     <div className="feedback-page">
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
       <div className="feedback-header">
         <div className="feedback-header-left">
           {feedbackData && feedbackData.map((feedback, index) => (
@@ -112,49 +111,45 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
               key={index}
               onClick={() => handleUserClick(index)}
             >
-              {feedback.userName}
+              {feedback[0].userName}
             </button>
           ))}
         </div>
         <div className="feedback-header-right">
           <button onClick={handleCompleteClick}>피드백 완료</button>
-          <div className="user-profile">{userId}</div>
+          <div className="user-profile">
+            <UserProfileIcon />
+          </div>
         </div>
       </div>
-      <div className="feedback-content">
-        <div className="problem-container">
-          {problems && problems[currentProblemIndex] && (
-            <>
-              <h2>문제</h2>
-              <h3>{problems[currentProblemIndex].title}</h3>
-              <div>{problems[currentProblemIndex].context}</div>
-              <div>
-                <div><strong>입력:</strong> {problems[currentProblemIndex].input}</div>
-                <div><strong>출력:</strong> {problems[currentProblemIndex].output}</div>
-              </div>
-              <div>
-                {problems[currentProblemIndex].testCases && problems[currentProblemIndex].testCases.map((testCase, index) => (
+      {selectedUserIndex !== null && (
+            <div className="feedback-content">
+              <div className="problem-container">
+                <h2>Problem</h2>
+                <h3>{problems[0][currentProblemIndex]?.title}</h3>
+                <div>{problems[0][currentProblemIndex]?.context}</div>
+                <div>
+                    <div>{problems[0][currentProblemIndex]?.input}</div>
+                    <div>{problems[0][currentProblemIndex]?.output}</div>
+                </div>
+                <div>{problems[0][currentProblemIndex]?.testCases.map((testCase, index) => (
                   <li key={index}>
                     <strong>Input:</strong> {testCase.input}<br />
                     <strong>Output:</strong> {testCase.output}
                   </li>
-                ))}
+                ))}</div>
               </div>
-            </>
+              <div className="code-container">
+                <h2>{feedbackData[selectedUserIndex][0].userName}의 코드</h2>
+                <pre>{feedbackData[selectedUserIndex][0].code}</pre>
+              </div>
+              <div className="chat-container">
+                <Chatting access_Token={access_Token} roomId={roomId} userName={hostName || "Unknown"}/>
+              </div>
+            </div>
           )}
-        </div>
-        <div className="code-container">
-          {selectedUserIndex !== null && (
-            <>
-              <h2>{feedbackData[selectedUserIndex].userName}의 코드</h2>
-              <pre>{selectedUserCode}</pre>
-            </>
-          )}
-        </div>
-        <div className="chat-container">
-          <Chatting />
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 };

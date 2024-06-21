@@ -1,0 +1,187 @@
+.create_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.205);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal_content {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-width: 770px;
+    font-size: 20px;
+}
+
+.header_with_error {
+    display: flex;
+    align-items: center;
+}
+
+.header_with_error .error_message {
+    margin-left: 20px;
+    color: red;
+    font-size: 14px;
+}
+
+.top_section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.top_left_section, .top_right_section {
+    display: flex;
+    flex-direction: column;
+    width: 43%;
+}
+
+.top_left_section{
+    gap: 10px;
+}
+
+.top_left_section .form_group input{
+    height: 50px;
+}
+
+.bottom_section {
+    margin: 0 auto;
+    width: 706px;
+}
+
+.modal_content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #007bff;
+    margin-left: 20px;
+}
+
+.form_group {
+    margin-bottom: 15px;
+}
+
+.form_group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.input_with_hint {
+    display: flex;
+    align-items: center;
+}
+
+.input_with_hint .input_hint {
+    margin-left: 10px;
+    font-size: 12px;
+    color: grey;
+}
+
+.input_with_hint .error_hint {
+    color: red;
+}
+
+.form_group input,
+.form_group select{
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 3px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.time_input select{
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.time_input {
+    display: flex;
+    align-items:end
+}
+
+.time_input select {
+    width: 50%;
+    margin-right: 5px;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    padding: 8px;
+    background-color: #fff;
+}
+
+.time_input span {
+    margin-right: 10px;
+    font-size: 17px;
+}
+
+
+.dropdown select {
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    padding: 8px;
+    background-color: #fff;
+}
+
+.button_group {
+    display: flex;
+    justify-content: end;
+    gap: 30px;
+    margin-right: 31px;
+}
+.Create_Button{
+    width: 200px !important;
+    font-size: 17px !important;
+}
+.Cancel_Button{
+    width: 80px !important;
+    font-size: 17px !important;
+}
+
+
+.average_difficulty_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.average_difficulty {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.input_hint {
+    font-size: 12px;
+    color: grey;
+    margin-left: 5px;
+}
+
+.error_message {
+    color: rgb(255, 0, 0);
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.bottom_section input {
+    text-align: start;
+    height: 50px;
+}
+
+.bottom_section input::placeholder {
+    text-align: start;
+    color: grey;
+    font-size: 16px;
+}

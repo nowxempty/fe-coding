@@ -1,0 +1,32 @@
+.input {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input_label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.input_field {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+.input_field.input_error {
+    border-color: red;
+}
+
+.input_hint {
+    font-size: 12px;
+    color: grey;
+}
+
+.input_hint.error_hint {
+    color: red;
+}

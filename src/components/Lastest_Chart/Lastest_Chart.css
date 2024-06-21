@@ -1,0 +1,48 @@
+.challenge-container h2{
+    margin-top: 10px;
+    padding : 0;
+}
+
+.challenge-container {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 247px;
+    margin: 15px 20px 20px 20px;
+}
+
+.challenge-list {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+    margin: 5px 0;
+}
+
+.challenge-item {
+    font-size: 17px;
+    margin: 5px 0px;
+    color: #00000078;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 22px;
+    color: black;
+    margin: 18px 0 0 0;
+}
+
+.Buttons{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.Buttons :nth-child(1),.Buttons :nth-child(2){
+    width: 305px;
+    height: 40px;
+    font-size: 18px;
+}

@@ -1,0 +1,126 @@
+.user_info {
+    display: flex;
+    position: relative !important;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    width: 290px;
+    height: 126px;
+    right: 0;
+    padding: 10px;
+    border: solid 2px #eaeaea;
+    border-radius: 25px 25px 0 0;
+    gap:5px;
+}
+
+.user_header {
+    display: flex;
+    position: relative;
+    width: 95%;
+    height: 50%;
+    justify-content: center !important;
+    margin: 0 auto;
+    flex-direction: column;
+
+}
+
+.user_header .user_profile {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.user_profile .left_section {
+    display: flex;
+    width: 80%;
+    gap: 3px;
+}
+
+.user_header .user_profile .left_section span {
+    display: flex;
+    align-items: flex-end;
+    font-weight: 600;
+    padding-bottom: 5px;
+}
+
+.user_profile_image{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left:8px;
+}
+
+.user_header .left_section .user_level {
+    font-size: 14px;
+    color: #4679fd;
+    font-weight: 700;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 6px;
+}
+
+.stat_value{
+    font-weight: 700 !important;
+}
+
+.logout-button-custom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 85px;
+    height: 28px;
+    color: #060606;
+    border: solid 2px #777777;
+    border-radius: 13px;
+    background-color: white;
+}
+
+.logout-button-custom .logout-text{
+    font-size: 12px;
+    color: #777777;
+    gap: 3px;
+}
+
+.logout-button-custom:hover {
+    background-color: #c8c8c8;
+    transition: background-color 0.3s ease;
+}
+
+.user_footer {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 59px;
+    justify-content: center;
+    align-items: center;
+    color: #888;
+    font-size: 16px;
+}
+
+.user_stats {
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: space-around;
+}
+
+
+.stat{
+    display: flex;
+    position: relative !important;
+    flex-direction: column;
+    gap:3px;
+}
+
+.stat_label {
+    display: block;
+
+    font-weight: 550;
+    color: #888;
+}
+
+.stat_value {
+
+    font-weight: 500;
+    color: #000;
+}

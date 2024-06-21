@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import UserProfileIcon from '../../components/Icon/UserProfileIcon';
 
 const CodeEditorPageHeader = ({ runCode, submitCode, time, handleLanguageChange, selectedLanguage, currentProblemIndex }) => {
   
@@ -21,7 +22,7 @@ const CodeEditorPageHeader = ({ runCode, submitCode, time, handleLanguageChange,
           <button className="header-button" onClick={runCode}>Run Code</button>
           <button className="header-button" onClick={submitCode}>Submit Code</button>
           <div className="profile">
-            <span>Profile</span>
+            <UserProfileIcon />
           </div>
         </div>
       </div>

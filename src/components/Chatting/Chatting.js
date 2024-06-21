@@ -1,24 +1,66 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useParams } from "react-router-dom";
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 import Button from '../Button/Button';
-import Arrow from '../Icon/Arrow';
+import Arrow from '../Icon/arrow';
 import './Chatting.css';
 
-const Chatting = () => {
+const Chatting = ({ userName,access_Token }) => {
+    const { roomId } = useParams();
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const messagesEndRef = useRef(null);
+    const stompClientRef = useRef(null);
+    const [connected, setConnected] = useState(false);
 
-    const nickname = '닉네임'; // 예시로 닉네임을 지정합니다. 실제로는 API에서 가져올 수 있습니다.
+    useEffect(() => {
+        // 소켓 서버에 연결
+        const socket = new SockJS(`https://salgoo9.site/chat`);
+        const stompClient = Stomp.over(socket);
+        stompClientRef.current = stompClient;
+
+        // STOMP 연결 설정
+        stompClient.connect({ "access": getTokenFromSomeWhere() }, (frame) => {
+            console.log('Connected to the server: ' + frame);
+            setConnected(true);
+
+            // Room ID로 연결된 방을 구독
+            const subscriptionUrl = `/sub/${roomId}`;
+            stompClient.subscribe(subscriptionUrl, (message) => {
+                displayMessage(message);
+            });
+            console.log('Subscribed to room ' + roomId);
+        }, (error) => {
+            console.log('Error: ' + error);
+            setConnected(false);
+        });
+
+        // 컴포넌트 언마운트 시 소켓 연결 해제
+        return () => {
+            if (stompClientRef.current) {
+                stompClientRef.current.disconnect(() => {
+                    console.log('Disconnected from the server');
+                });
+                setConnected(false);
+            }
+        };
+    }, [roomId]);
 
     const handleSendMessage = () => {
+        const stompClient = stompClientRef.current;
+        if (!connected) {
+            alert('WebSocket is not connected.');
+            return;
+        }
+
         if (inputValue.trim()) {
-            const newMessage = {
+            const headers = { "access": getTokenFromSomeWhere() };
+            stompClient.send(`/pub/message/${roomId}`, headers, JSON.stringify({
                 content: inputValue,
-                timestamp: new Date().toLocaleTimeString(),
-                type: 'sent', // 보낸 메시지로 설정
-                nickname: nickname
-            };
-            setMessages([...messages, newMessage]);
+                sender: userName // 서버로 보낼 때도 userName을 sender로 보냅니다.
+            }));
+
             setInputValue('');
         }
     };
@@ -32,6 +74,21 @@ const Chatting = () => {
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
+
+    const displayMessage = (message) => {
+        const messageBody = JSON.parse(message.body);
+        const newMessage = {
+            content: messageBody.content,
+            timestamp: new Date().toLocaleTimeString(),
+            type: messageBody.sender === userName ? 'sent' : 'received',
+            nickname: messageBody.sender // 서버로부터 받은 메시지에서 sender를 nickname으로 설정합니다.
+        };
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+    };
+
+    function getTokenFromSomeWhere() {
+        return access_Token;
+    }
 
     return (
         <div className="chatting_list">

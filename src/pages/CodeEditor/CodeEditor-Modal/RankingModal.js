@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './RankingModal.css';
 
-const RankingModal = ({ isOpen, onClose, roomId, problemId }) => {
+const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
     const [rankings, setRankings] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -11,12 +11,12 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId }) => {
     useEffect(() => {
         const fetchRankings = async () => {
             try {
-                const response = await fetch(`https://salgoo9.site/api/${roomId}/score?problemId=${problemId}`, { //`https://salgoo9.site/api/${room_id}/score?problemId=${problemId}
+                const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/score?problemId=${problemId}`, { 
                     method: 'GET',
                     credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
-                        'access': 'eyJhbGciOiJIUzI1NiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdDIyMjIxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTg3Nzk4NjksImV4cCI6MTcxODg2NjI2OX0.z132XII5M0Z1B8y33GP0I5oaH8JADg0GTqr0kCnivZo'
+                        'access': access_Token
                     },
                 });
                 const data = await response.json();
@@ -45,7 +45,7 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId }) => {
             }, 5000);
             return () => clearTimeout(timer);
         }
-    }, [isOpen, onClose, roomId, problemId]);
+    }, [isOpen, onClose, roomId, problemId, access_Token]);
 
     if (!isOpen) return null;
 
