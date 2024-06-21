@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React,{useState} from 'react';
 
-import MyPage from './pages/MyPage/Mypage.js';
+import MyPage from './pages/MyPage/MyPage.js';
 import ChallengeList from "./pages/ChallengeListPage/ChallengeListPage";
 import WaitingRoom from "./pages/WaitingRoom/WaitingRoom"
 import LoginPage from "./pages/Login/Login.js";
