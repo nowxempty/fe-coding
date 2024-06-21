@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Chatting from '../../components/Chatting/Chatting'
 import './FeedbackPage.css';
+import UserProfileIcon from '../../components/Icon/UserProfileIcon';
 
 const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComplete, access_Token }) => {
   const [problems, setProblems] = useState(null);
@@ -116,7 +117,9 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
         </div>
         <div className="feedback-header-right">
           <button onClick={handleCompleteClick}>피드백 완료</button>
-          <div className="user-profile">{userId}</div>
+          <div className="user-profile">
+            <UserProfileIcon />
+          </div>
         </div>
       </div>
       {selectedUserIndex !== null && (

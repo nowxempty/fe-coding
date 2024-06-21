@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {LoginClick} from './Login_func.js';
+import Logo from "../../components/Icon/Logo.png";
 
 import './Login.css';
 //npm run start:windows
@@ -20,7 +21,7 @@ function LoginPage({setAccessToken,setUserInfo,setImage,setName}) {
   return (
     <div className="Login_page">
       <div className='Login_leftSction'>
-          <h1>WEB IDE</h1>
+          <img src={Logo} alt="logo" />
       </div>
       <div className="Login_Body">
           <div className="Login_WebIde">WEB IDE</div>

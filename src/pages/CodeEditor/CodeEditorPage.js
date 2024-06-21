@@ -227,9 +227,18 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
                         </div>
                       );
                     } catch (error) {
-                      return <pre className="resultValue">{result}</pre>;
+                      const parsedResult = JSON.parse(result);                    
+                      return (
+                        <div>
+                          {parsedResult.map((item, index) => (
+                            <div key={index} className="result-item">
+                              <p>잘못된 카운트 횟수: {item.wrongCount}</p>
+                            </div>
+                          ))}
+                        </div>
+                      );
                     }
-                  })()}
+                  })}
                 </div>
               </div>
             </div>

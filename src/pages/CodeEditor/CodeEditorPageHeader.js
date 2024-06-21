@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Icon from '../../components/Icon/Icon.svg';
+import UserProfileIcon from '../../components/Icon/UserProfileIcon';
 
 const CodeEditorPageHeader = ({ runCode, submitCode, time, handleLanguageChange, selectedLanguage, currentProblemIndex }) => {
   
@@ -22,7 +22,7 @@ const CodeEditorPageHeader = ({ runCode, submitCode, time, handleLanguageChange,
           <button className="header-button" onClick={runCode}>Run Code</button>
           <button className="header-button" onClick={submitCode}>Submit Code</button>
           <div className="profile">
-            <img src={Icon} alt="Icon" />
+            <UserProfileIcon />
           </div>
         </div>
       </div>
