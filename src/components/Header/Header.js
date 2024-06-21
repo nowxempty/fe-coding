@@ -42,7 +42,7 @@ export default function Header({access_Token,setAccessToken,image,name,level}) {
         </div>
         {accessToken ? (
           <div className="Header_user_box" onClick={() => Link_MyPage()}>
-            <UserProfileIcon />
+            <img className="Header_user_box_Image" src={image ? image : defaultImage} alt={UserProfileIcon} />
             <div className="Header_user_box_Text">{name}</div>
             <div className="Level1">Level {level}</div>
             <div className="Logout" onClick={() => nav_Logout()}>로그아웃</div>
