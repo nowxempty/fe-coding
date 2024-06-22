@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const AllCompletedModal = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
     const ToMainRoom = () => {
-      navigate('/');
+      navigate('/ChallengeList');
     };
 
     if (!isOpen) return null;

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import React,{useState} from 'react';
 
 import MyPage from './pages/MyPage/MyPage.js';
@@ -17,11 +17,12 @@ function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/Login" element={<LoginPage setAccessToken={setAccessToken} setUserInfo={setUserInfo} setImage={setImage} setName={setName} />} />
+        <Route path="/" element={<Navigate to="/Login" />} />
+        <Route path="/Login" element={<LoginPage setAccessToken={setAccessToken} setUserInfo={setUserInfo} setImage={setImage} setName={setName} />} />
         <Route path="/Join" element={<JoinPage/>} />
         <Route path="/MyPage" element={<MyPage userInfoms={userInfoms} access_Token={access_Token} setProblem={setProblem} setAccessToken={setAccessToken} setUserInfo={setUserInfo} image ={image} setName={setName} />} />
         <Route path="/InformPage" element={<InformPage userInfoms={userInfoms} setUserInfo={setUserInfo} access_Token={access_Token} setAccessToken={setAccessToken} image ={image} setImage={setImage} name={name} setName = {setName} />} />
-        <Route path="/" element={<ChallengeList access_Token={access_Token} setAccessToken={setAccessToken} userInfoms={userInfoms}/>} /> 
+        <Route path="/ChallengeList" element={<ChallengeList access_Token={access_Token} setAccessToken={setAccessToken} userInfoms={userInfoms}/>} /> 
         <Route path="/room/:roomId" element={<WaitingRoom access_Token={access_Token} setAccessToken={setAccessToken}/>} />
         {/* <Route path="/code-editor" element={<FeedbackPage />} /> */}
       </Routes>

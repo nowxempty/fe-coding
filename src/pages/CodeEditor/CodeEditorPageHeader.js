@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import UserProfileIcon from '../../components/Icon/UserProfileIcon';
 
-const CodeEditorPageHeader = ({ runCode, submitCode, time, handleLanguageChange, selectedLanguage, currentProblemIndex }) => {
+const CodeEditorPageHeader = ({ runCode, submitCode, time, handleLanguageChange, selectedLanguage, currentProblemIndex, isRunning }) => {
   
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -19,11 +18,8 @@ const CodeEditorPageHeader = ({ runCode, submitCode, time, handleLanguageChange,
       <div className="top-header">
         <div className="timer">Time: {time}s</div>
         <div className="actions">
-          <button className="header-button" onClick={runCode}>Run Code</button>
-          <button className="header-button" onClick={submitCode}>Submit Code</button>
-          <div className="profile">
-            <UserProfileIcon />
-          </div>
+          <button className="header-button" onClick={runCode} disabled={isRunning} >Run Code</button>
+          <button className="header-button" onClick={submitCode} disabled={isRunning} >Submit Code</button>
         </div>
       </div>
       <div className="bottom-header">

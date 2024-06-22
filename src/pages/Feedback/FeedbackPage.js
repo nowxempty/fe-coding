@@ -7,7 +7,7 @@ import UserProfileIcon from '../../components/Icon/UserProfileIcon';
 const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComplete, access_Token }) => {
   const [problems, setProblems] = useState(null);
   const [feedbackData, setFeedbackData] = useState([]);
-  const [selectedUserIndex, setSelectedUserIndex] = useState(null);
+  const [selectedUserIndex, setSelectedUserIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
   const hostName = location.state?.hostName || '';
@@ -98,39 +98,43 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
     setSelectedUserIndex(index);
   };
 
+// FeedbackPage.js 내부
   return (
     <div className="feedback-page">
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         <>
-      <div className="feedback-header">
-        <div className="feedback-header-left">
-          {feedbackData && feedbackData.map((feedback, index) => (
-            <button
-              key={index}
-              onClick={() => handleUserClick(index)}
-            >
-              {feedback[0].userName}
-            </button>
-          ))}
-        </div>
-        <div className="feedback-header-right">
-          <button onClick={handleCompleteClick}>피드백 완료</button>
-          <div className="user-profile">
-            <UserProfileIcon />
+          <div className="feedback-header">
+            <div className="feedback-header-left">
+              {feedbackData && feedbackData.map((feedback, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleUserClick(index)}
+                  className={selectedUserIndex === index ? 'selected-button' : ''}
+                >
+                  {feedback[0].userName}
+                </button>
+              ))}
+            </div>
+            <div className="feedback-header-right">
+              <button onClick={handleCompleteClick}>피드백 완료</button>
+              <div className="user-profile">
+                <UserProfileIcon />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      {selectedUserIndex !== null && (
+          {selectedUserIndex !== null && (
             <div className="feedback-content">
               <div className="problem-container">
                 <h2>Problem</h2>
                 <h3>{problems[0][currentProblemIndex]?.title}</h3>
                 <div>{problems[0][currentProblemIndex]?.context}</div>
-                <div>
-                    <div>{problems[0][currentProblemIndex]?.input}</div>
-                    <div>{problems[0][currentProblemIndex]?.output}</div>
+                <div className="Input-Output">
+                  <h3>입력예시</h3>
+                      <div>{problems[0][currentProblemIndex]?.input}</div>
+                  <h3>출력예시</h3>
+                      <div>{problems[0][currentProblemIndex]?.output}</div>
                 </div>
                 <div>{problems[0][currentProblemIndex]?.testCases.map((testCase, index) => (
                   <li key={index}>
@@ -153,5 +157,6 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
     </div>
   );
 };
+
 
 export default FeedbackPage;

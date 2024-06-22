@@ -99,4 +99,8 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
+.selected-button {
+  background-color: #4679FD;
+  color: #e0e0e0;
+}
 
