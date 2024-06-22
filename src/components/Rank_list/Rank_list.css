@@ -1,0 +1,88 @@
+/* File: src/components/Rank_list.css */
+
+.Rank_list {
+    display: flex;
+    position: relative !important;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 290px;
+    right: 0;
+    padding: 0 10px 10px 10px;
+    border: solid 2px #eaeaea;
+    border-radius: 0 0 25px 25px;
+    gap: 5px;
+    max-height: 490px; /* 최소 5등까지 보이게 설정 */
+    overflow-y: auto;  /* 스크롤 가능하게 설정 */
+}
+
+
+.Rank_list h3 {
+    color: #4679fd;
+    margin: 0 10px 0px 10px;
+    padding: 20px 0 0 0;
+}
+
+.Rank_list-header {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 11px 0;
+    font-weight: 500;
+    align-items: center;
+    text-align: center;
+    font-size: 17px;
+    top: 0;
+}
+
+.Rank_fixed{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: white;
+}
+
+.Rank_list-header .rank {
+    width: 15%;
+}
+
+.Rank_list-header .nickname {
+    width: 36%;
+}
+
+.Rank_list-header .score {
+    width: 36%;
+}
+
+.Rank_list-item {
+    display: flex;
+    padding: 11px 0;
+    align-items: center;
+    text-align: center;
+    justify-content: space-evenly;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.Rank_list-item .rank {
+    width: 15%;
+}
+
+.Rank_list-item .nickname {
+    width: 36%;
+}
+
+.Rank_list-item .score {
+    width: 36%;
+}
+
+/* 스크린 높이에 따라 Rank_list의 높이 조정 */
+@media (min-height: 1024px) {
+    .Rank_list {
+        height: 472px; /* 고정 높이 */
+    }
+}
+
+@media (max-height: 1024px) {
+    .Rank_list {
+        height: calc(86vh - 424px); /* 유동 높이 */
+    }
+}

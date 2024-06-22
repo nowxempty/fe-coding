@@ -1,0 +1,87 @@
+/* 전체 모달 스타일 */
+.ranking-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.ranking-modal-content {
+  background: #D9D9D9;
+  width: 536px;
+  padding: 20px;
+  border-radius: 7px;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.ranking-modal h2 {
+  font-family: 'Gmarket Sans TTF', sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 0;
+  text-align: center;
+  color: black;
+}
+
+.ranking-modal p {
+  font-family: 'Gmarket Sans TTF', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: black;
+  text-align: center;
+}
+
+.ranking-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 10px;
+  border-radius: 7px;
+  margin-bottom: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-item span {
+  font-family: 'Gmarket Sans TTF', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: black;
+}
+
+/* 랭킹 아이템 프로필 이미지 스타일 */
+.ranking-item img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: linear-gradient(0deg, #D9D9D9 0%, #D9D9D9 100%);
+}
+
+/* 전체 모달 닫기 버튼 스타일 */
+.ranking-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* 로딩, 에러, 모두 실패 텍스트 스타일 */
+.ranking-modal .loading,
+.ranking-modal .error,
+.ranking-modal .all-failed {
+  font-family: 'Gmarket Sans TTF', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: black;
+  text-align: center;
+}

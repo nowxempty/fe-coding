@@ -1,0 +1,43 @@
+.room-info{
+    height: 71.5vh;
+    width: 20vw;
+    position: relative; 
+    border-radius: 20px;
+    border: 1.5px solid #d2d2d2; 
+    padding: 14px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+
+.room-details {
+    margin: 10px 15px;
+}
+
+
+
+.room-detail-item {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    gap:17px;
+}
+
+.room-detail-item :nth-child(1){
+    font-size: 18px;
+}
+
+.room-title,
+.average-difficulty,
+.description,
+.duration,
+.problems {
+    border-radius: 7px;
+    border: 1px solid #d2d2d2;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+
+.description{
+    position: relative;
+}
