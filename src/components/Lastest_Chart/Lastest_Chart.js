@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '../Button/Button';
-import { useNavigate } from 'react-router-dom';
 import './Lastest_Chart.css';
 
 const Lastest_Chart = ({access_Token, hideMyChallengeButton = false, setModalOpen }) => {
