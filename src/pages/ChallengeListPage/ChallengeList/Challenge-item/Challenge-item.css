@@ -18,9 +18,9 @@
     background-color: #f1f1f1;
     padding: 10px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1rem;
     border-bottom: 1px solid #ccc;
-    height: 45px;
+    height: 30px;
     align-items: center;
     position: sticky;
     top: 0;
@@ -45,8 +45,8 @@
     padding: 10px;
     font-weight: bold;
     align-items: center;
-    font-size: 18px;
-    height: 60px;
+    font-size: 1rem;
+    height: 40px;
 }
 
 .Challenge_list {
@@ -95,11 +95,6 @@
 .Challenge_item .Challenge_header .title,
 .Challenge_list .Challenge_list_item .title {
     flex: 2;
-}
-
-.difficulty{
-    font-size: 18px !important;
-    font-weight: 500;
 }
 
 .difficulty.silver {
