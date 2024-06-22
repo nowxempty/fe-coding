@@ -10,7 +10,6 @@ export const Get_User_code = async (roomId,problemId,access_Token,user_name) => 
       }
     }).then(async response => {
       const responseData = await response.json();
-      console.log(responseData);
       handle_Code_Response(responseData,user_name);
   });
 };
@@ -31,7 +30,6 @@ export const Get_Problem = async (roomId,problemId,access_Token,setProblem,user_
         const problem = findProblemById(responseData,problemId);
         setProblem(problem);
         localStorage.setItem(user_name + "problem", JSON.stringify(problem));
-        handle_Code_Response(responseData,user_name);
   });
 };
 
@@ -53,8 +51,8 @@ const handle_Code_Response = (responseData,user_name) => {
   
   switch (statusCode) {
     case 200:
-        console.log( message);
-        const code = responseData.results.code;
+        console.log(message);
+        const code = responseData.results[0].code;
         localStorage.setItem(user_name + "code", JSON.stringify(code));
         break;
     case 400:
