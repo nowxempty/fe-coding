@@ -1,4 +1,5 @@
 import React from 'react';
+import useNavigate from 'react-router-dom'
 import Button from '../Button/Button';
 import './Lastest_Chart.css';
 
@@ -10,12 +11,14 @@ const Lastest_Chart = ({access_Token, hideMyChallengeButton = false, setModalOpe
         "챌린지 D"
     ];
 
+    const Navigate = useNavigate();
+
     const handleCreateChallenge = () => {
         setModalOpen(true);
     };
 
     const handleMyChallenge = () => {
-        console.log("나의 챌린지 버튼 클릭됨");
+        Navigate("/MyPage");
     };
 
     return (
@@ -28,7 +31,7 @@ const Lastest_Chart = ({access_Token, hideMyChallengeButton = false, setModalOpe
             </ul>
             <div className='Buttons'>
                 <Button text="챌린지 생성" onClick={handleCreateChallenge} />
-                {!hideMyChallengeButton && <Button text="나의 챌린지" onClick={handleMyChallenge} />}
+                {!hideMyChallengeButton && <Button text="마이페이지" onClick={handleMyChallenge} />}
             </div>
         </div>
     );
