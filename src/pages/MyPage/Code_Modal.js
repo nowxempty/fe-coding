@@ -31,8 +31,6 @@ const Modal = ({ isOpen, onClose, item, user_name }) => {
     return null;
   }
 
-  const problemData = problem.context;
-  
   const codes = `function add(a, b) {
     return a + b;
   }
@@ -48,17 +46,32 @@ const Modal = ({ isOpen, onClose, item, user_name }) => {
         <div className="Code_modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="CodePage">
             <header className="CodePage_header">
-              <div className="CodePage_timer">{item.durationTile}</div>
+              <div className="CodePage_timer">"12:30"</div>
             </header>
             <div className="CodePage_container">
-              <div className="CodePage_problem">
-                <span>{problemData}</span>
+            <div className="CodePage_problem">
+              <div className="problem-section">
+                <span className='code_bold'>문제</span>
+                <br /><br />
+                <span>{problem.context}</span>
               </div>
+              <div className="problem-section">
+                <span className='code_bold'>입력</span>
+                <br /><br />
+                <span>{problem.input}</span>
+              </div>
+              <div className="problem-section">
+                <span className='code_bold'>출력</span>
+                <br /><br />
+                <span>{problem.output}</span>
+              </div>
+            </div>
+
               <div className="CodePage_codeContainer">
                   <Editor 
                     className='codeEditor'
                     language= "javascript"
-                    value={codes}
+                    value={code}
                     theme="light"
                   />
               </div>
