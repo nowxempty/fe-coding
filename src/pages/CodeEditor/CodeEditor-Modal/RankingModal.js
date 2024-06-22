@@ -64,7 +64,8 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
                 {rankings.map((ranking, index) => (
                   <li key={index} className="ranking-item">
                     <span>Rank: {ranking.rank}</span>
-                    <span>Username: {ranking.username}</span>
+                    <span>{ranking.profielImage}</span>
+                    <span>{ranking.username}</span>
                     <span>Level: {ranking.level}</span>
                     <span>Extra EXP: {ranking.extraEXP}</span>
                     <span>Time: {new Date(ranking.localDateTime).toLocaleString()}</span>
