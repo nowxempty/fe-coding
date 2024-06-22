@@ -108,7 +108,7 @@ function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserI
                                 dataList.map((item, index) => (
                                     <div key={index} className="Mypage_item" onClick={() => handleinformClick2(item)}>
                                         <div className="Mypage_item-name">{item.problemName}</div>
-                                        <div className="Mypage_item-Lang">{item.durationTile}</div>
+                                        <div className="Mypage_item-Lang">{item.durationTime}</div>
                                         <div className="Mypage_item-difficulty">{item.solved ? 'Solved' : 'Not Solved'}</div>
                                         <div className="Mypage_item-date">{item.submitTime ? item.submitTime.split('T')[0] : ''}</div>
                                     </div>
