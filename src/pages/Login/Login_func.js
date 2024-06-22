@@ -81,7 +81,6 @@ const handle_Login_Response = (responseData,navigate,data,access_Token,setUserIn
     case 200:
         console.log( message);
         alert(message);
-        //Get_User_Inform(access_Token,setUserInfo);
         navigate('/MyPage');
         break;
     case 400:

@@ -6,7 +6,7 @@ import Userinfo from '../../components/User_info/User_info';
 import Rank_list from '../../components/Rank_list/Rank_list';
 import Create_Modal from './Create_Modal/Create_Modal';
 
-const ChallengeMainpage = ({access_Token}) => {
+const ChallengeMainpage = ({access_Token ,setAccessToken,userInfoms}) => {
     const [modalOpen, setModalOpen] = useState(false);//false로 수정
 
     const user = {
@@ -19,7 +19,7 @@ const ChallengeMainpage = ({access_Token}) => {
 
     return (
         <div style={{width:'100%',height:'100%'}}>
-            <Header access_Token={access_Token}/>
+            <Header access_Token={access_Token} setAccessToken={setAccessToken} image={userInfoms.profileImage} name={userInfoms.userName} level = {userInfoms.level} />
             <div style={{display:'flex', gap:'10px',justifyContent:'center'}}>
                 <Challenge_chart access_Token={access_Token}/>
                 <div>

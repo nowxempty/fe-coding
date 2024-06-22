@@ -8,7 +8,7 @@ import RoomInfo from "../WaitingRoom/RoomInfo/RoomInfo";
 import './WaitingRoom.css';
 import Button from "../../components/Button/Button";
 
-const WaitingRoom = ({ access_Token }) => {
+const WaitingRoom = ({ access_Token ,setAccessToken }) => {
     const navigate = useNavigate();
     const { roomId } = useParams();
     const location = useLocation();
@@ -124,7 +124,7 @@ const WaitingRoom = ({ access_Token }) => {
 
     return (
         <div>
-            <Header className={"Header"} access_Token={access_Token} />
+            <Header className={"Header"} access_Token={access_Token} setAccessToken={setAccessToken} image={userData.profileImage} name ={userData.name} level={userData.level} />
             <div style={{ display: 'flex', width: '100vw', height: '94vh', gap: '30px', justifyContent: 'center', alignItems: 'center' }}>
                 <div className="main_left">
                     <UserList access_Token={access_Token} refreshKey={refreshKey} setAllReady={setAllReady} />

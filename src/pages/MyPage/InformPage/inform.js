@@ -4,17 +4,19 @@ import './inform.css';
 import { handleDeleteAccount, Change_user_Inform, uploadImage } from './inform_func.js';
 import Header from '../../../components/Header/Header.js';
 import Modal from './Profile_Modal.js';
+import { VscAccount } from "react-icons/vsc";
 import { refreshAccessToken } from '../../../refreshAccessToken.js';
 
-function InformPage({ userInfoms, setUserInfo, access_Token, setAccessToken ,image,setImage ,name,setName }) {
-  const navigate = useNavigate();
+function InformPage({ userInfoms, setUserInfo, access_Token, setAccessToken}) {
   const [Nickname, setNickname] = useState('');
   const [Password, setPassword] = useState('');
+  const [user_level, setUser_Level] = useState('');
   const [Passwordcheck, setPasswordcheck] = useState('');
   const [DeleteAccount, setDeleteAccount] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [profileImage, setProfileImage] = useState('/logo512.png'); // 초기값을 기본 이미지로 설정
-  const defaultImage = '/logo512.png';
+  const [profileName, setProfileName] = useState(''); // 초기값을 기본 이미지로 설정
+
 
   useEffect(() => {
     if (!access_Token) {
@@ -34,18 +36,16 @@ function InformPage({ userInfoms, setUserInfo, access_Token, setAccessToken ,ima
         const responseData = await response.json();
         if (responseData.status && responseData.status.code === 200) {
           const userInfom = responseData.results[0];
+          setUserInfo(userInfom);
           setProfileImage(userInfom.profileImage);
-          setImage(userInfom.profileImage);
+          setProfileName(userInfom.userName);
+          setUser_Level(userInfom.level);
         } else {
           console.error('Invalid response status:', responseData.status);
         }
     };
     fetchUserInfo();
-  }, [access_Token, setAccessToken]);
-
-  useEffect(() => {
-    setImage(profileImage);
-  }, [profileImage, setImage]);
+  }, [access_Token, setAccessToken,setUserInfo]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -72,11 +72,11 @@ function InformPage({ userInfoms, setUserInfo, access_Token, setAccessToken ,ima
 
   return (
     <div className='Inform_body'>
-      <Header access_Token={access_Token} userInfoms={userInfoms} setAccessToken={setAccessToken} image={image} name={name} />
+      <Header access_Token={access_Token} userInfoms={userInfoms} setAccessToken={setAccessToken} image={profileImage} name={profileName} level = {user_level}/>
       <div className='Inform_container'>
         <div className="Inform_Page">
           <div className="Inform_profile-section">
-            <img className="Inform_profile-image" src={profileImage ? profileImage : defaultImage} alt='프로필 이미지' />
+            <img className="Inform_profile-image" src={profileImage ? profileImage : <VscAccount/>} alt='프로필 이미지' />
             <div className="Inform_profile-button-container">
               <button className="Inform_Pic_Btn" onClick={openModal}>프로필 사진 변경</button>
             </div>
@@ -121,7 +121,7 @@ function InformPage({ userInfoms, setUserInfo, access_Token, setAccessToken ,ima
                   </div>
                 </div>
                 <div className="Inform_save-button-container">
-                  <button className="Inform_Rectangle12" onClick={() => Change_user_Inform(Nickname, Password, Passwordcheck, access_Token, setUserInfo,setName)}>저장</button>
+                <button className="Inform_Rectangle12" onClick={() => {Change_user_Inform(Nickname, Password, Passwordcheck, access_Token, setUserInfo, setProfileName); setNickname('');}}>저장</button>
                 </div>
                 <div className="Inform_withdraw-instruction">회원 탈퇴 하시려면 “회원 탈퇴”를 입력해주세요.</div>
                 <div className="Inform_confirm-password-section">
@@ -148,7 +148,6 @@ function InformPage({ userInfoms, setUserInfo, access_Token, setAccessToken ,ima
         isOpen={isModalOpen}
         onClose={closeModal}
         onSelect={handleImageSelect}
-        setImage={setImage}
       />
     </div>
   );
