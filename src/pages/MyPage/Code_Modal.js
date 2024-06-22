@@ -17,9 +17,10 @@ const Modal = ({ isOpen, onClose, item, user_name }) => {
       };
       const fetchCode = async () => {
         const storedCode = localStorage.getItem(user_name + "code");
-        if (storedCode) {
+        if (storedCode === "null") {
+          setcode("");
+        }else {
           setcode(storedCode);
-          console.log(storedCode);
         }
       };
       fetchProblem();
@@ -30,15 +31,6 @@ const Modal = ({ isOpen, onClose, item, user_name }) => {
   if (!problem) {
     return null;
   }
-
-  const codes = `function add(a, b) {
-    return a + b;
-  }
-
-  // Example usage
-  const result = add(1, 2);
-  console.log(result); // Output: 3
-  `;
 
   return (
     isOpen && (
