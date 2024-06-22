@@ -115,22 +115,25 @@ const WaitingRoom = ({ access_Token }) => {
         const checkStartStatus = async () => {
             if (isHost) return;  // 호스트는 시작 상태를 확인하지 않음
             try {
-                const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/start`, {
-                    method: 'POST',
+                const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/status`, {
+                    method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                         'access': access_Token
                     }
                 });
                 if (response.ok) {
+                    const result = await response.json();
+                    if (result.status === 'ONGOING') {
+                        setStart(true);
+                    }
                 }
-                setStart(true);
             } catch (error) {
                 console.error('시작 상태 확인 중 오류 발생:', error);
             }
         };
 
-        const intervalId = setInterval(checkStartStatus, 1000); // 1초마다 시작 상태 확인
+        const intervalId = setInterval(checkStartStatus, 800); // 1초마다 시작 상태 확인
 
         return () => clearInterval(intervalId);
     }, [access_Token, roomId, isHost]);
