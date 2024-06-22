@@ -9,37 +9,44 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
 
 
     useEffect(() => {
-        const fetchRankings = async () => {
-            try {
-                const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/score?problemId=${problemId}`, { 
-                    method: 'GET',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'access': access_Token
-                    },
-                });
-                const data = await response.json();
-                if (data.results && data.results[0].length > 0) {
-                    setRankings(data.results[0]);
-                    const allRanksAreZero = data.results[0].every(ranking => ranking.rank === 0);
-                    if (allRanksAreZero) {
-                        setAllFailed(true);
-                    }
-                } else {
-                    setRankings([]);
-                    setError('순위가 집계중입니다...');
-                }
-            } catch (error) {
-                console.error('Error fetching rankings', error);
-                setError('Error fetching rankings.');
-            }
-        };
-
-        if (isOpen) {
+      let timer;
+      const fetchRankings = async () => {
+          try {
+              const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/score?problemId=${problemId}`, { 
+                  method: 'GET',
+                  credentials: 'include',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'access': access_Token
+                  },
+              });
+              const data = await response.json();
+              if (data.results && data.results[0].length > 0) {
+                  setRankings(data.results[0]);
+                  const allRanksAreZero = data.results[0].every(ranking => ranking.rank === 0);
+                  if (allRanksAreZero) {
+                      setAllFailed(true);
+                  }
+              } else {
+                  setRankings([]);
+                  setError('순위가 집계중입니다...');
+              }
+          } catch (error) {
+              console.error('Error fetching rankings', error);
+              setError('Error fetching rankings.');
+          } finally {
+              setIsLoading(false);
+          }
+      };
+  
+      if (isOpen) {
           fetchRankings();
+          timer = setInterval(fetchRankings, 800);  // 5초마다 fetchRankings 호출
       }
+  
+      return () => clearInterval(timer);
   }, [isOpen, roomId, problemId, access_Token]);
+  
 
   useEffect(() => {
       if (!isLoading && isOpen) {
