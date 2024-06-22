@@ -195,28 +195,31 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
                 <h3>{problems[0][currentProblemIndex]?.title}</h3>
                 <div>{problems[0][currentProblemIndex]?.context}</div>
                 <div className="Input-Output">
-                  <h3>입력예시</h3>
-                      <div>{problems[0][currentProblemIndex]?.input}</div>
-                  <h3>출력예시</h3>
-                      <div>{problems[0][currentProblemIndex]?.output}</div>
+                  <h3>입력</h3>
+                  <div>{problems[0][currentProblemIndex]?.input}</div>
+                  <h3>출력</h3>
+                  <div>{problems[0][currentProblemIndex]?.output}</div>
                 </div>
-                <div>{problems[0][currentProblemIndex]?.testCases.map((testCase, index) => (
-                  <li key={index}>
-                    <strong>Input:</strong> {testCase.input}<br />
-                    <strong>Output:</strong> {testCase.output}
-                  </li>
-                ))}</div>
+                <h3>입출력 예시</h3>
+                <div>
+                  {problems[0][currentProblemIndex]?.testCases.map((testCase, index) => (
+                    <li key={index}>
+                      <strong>Input:</strong> {testCase.input}<br />
+                      <strong>Output:</strong> {testCase.output}
+                    </li>
+                  ))}
+                </div>
               </div>
               <div className="right-section">
                 <div className="editor-container">
                   <Editor
-                      height="50vh"
-                      width="65vw"
-                      language={language}
-                      value={code}
-                      theme="vs-dark"
-                      onChange={(value, event) => setCode(value)}
-                    />
+                    height="50vh"
+                    width="65vw"
+                    language={language}
+                    value={code}
+                    theme="vs-dark"
+                    onChange={(value, event) => setCode(value)}
+                  />
                 </div>
                 <div className="result-container">
                   <h3>Result</h3>
@@ -239,18 +242,9 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
                         </div>
                       );
                     } catch (error) {
-                      const parsedResult = JSON.parse(result);                    
-                      return (
-                        <div>
-                          {parsedResult.map((item, index) => (
-                            <div key={index} className="result-item">
-                              <p>잘못된 카운트 횟수: {item.wrongCount}</p>
-                            </div>
-                          ))}
-                        </div>
-                      );
+                      return <div>{result}</div>;
                     }
-                  })}
+                  })()}
                 </div>
               </div>
             </div>
@@ -263,14 +257,13 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
             access_Token={access_Token}
           />
           <AllCompletedModal
-          isOpen={isAllCompletedModalOpen}
-          onClose={() => setIsAllCompletedModalOpen(false)}
+            isOpen={isAllCompletedModalOpen}
+            onClose={() => setIsAllCompletedModalOpen(false)}
           />
         </>
       )}
     </div>
   );
 };
-  
 
 export default CodeEditorPage;
