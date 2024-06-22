@@ -51,7 +51,6 @@ const handle_Code_Response = (responseData,user_name) => {
   
   switch (statusCode) {
     case 200:
-        console.log(message);
         const code = responseData.results[0].code;
         localStorage.setItem(user_name + "code", JSON.stringify(code));
         break;
