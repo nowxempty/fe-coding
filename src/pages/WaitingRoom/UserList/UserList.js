@@ -25,7 +25,7 @@ const UserList = ({ access_Token, refreshKey, setAllReady }) => {
                 const data = await response.json();
                 const mappedData = data.map((user, index) => ({
                     id: index, // 고유 키로 사용될 id 설정
-                    profileImage: '', // 필요한 경우 기본 프로필 이미지를 설정
+                    profileImage: user.profileImage, // 필요한 경우 기본 프로필 이미지를 설정
                     name: user.name,
                     info: user.status,
                     ready: user.status === 'WAITING' ? false : true // 상태에 따라 ready 여부 설정
@@ -40,7 +40,14 @@ const UserList = ({ access_Token, refreshKey, setAllReady }) => {
             }
         };
 
+        // 첫 번째 fetchParticipants 호출
         fetchParticipants();
+
+        // 1초마다 fetchParticipants 호출
+        const intervalId = setInterval(fetchParticipants, 1000);
+
+        // 컴포넌트가 언마운트될 때 인터벌을 정리
+        return () => clearInterval(intervalId);
     }, [roomId, refreshKey, access_Token, setAllReady]);
 
     if (loading) {

@@ -42,7 +42,7 @@
     align-items: center;
 }
 .user-status.ready {
-    color: #4679FD;
+    color: #4679FD ;
     background-color: #ffffff;
     border: 1px solid #4679FD;
     font-size: 1rem;
