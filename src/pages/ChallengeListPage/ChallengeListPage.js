@@ -6,7 +6,7 @@ import Userinfo from '../../components/User_info/User_info';
 import Rank_list from '../../components/Rank_list/Rank_list';
 import Create_Modal from './Create_Modal/Create_Modal';
 
-const ChallengeMainpage = ({access_Token ,setAccessToken,userInfoms}) => {
+const ChallengeMainpage = ({ access_Token, setAccessToken, userInfoms }) => {
     const [modalOpen, setModalOpen] = useState(false);//false로 수정
 
     const user = {

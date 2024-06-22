@@ -7,7 +7,7 @@ import UserProfileIcon from "../Icon/UserProfileIcon";
 import Logo from "../Icon/Logo.png";
 
 
-export default function Header({access_Token,setAccessToken,image,name,level}) {
+export default function Header({ access_Token, setAccessToken, image, name, level}) {
   const navigate = useNavigate();
   const accessToken = access_Token;
 
@@ -24,7 +24,7 @@ export default function Header({access_Token,setAccessToken,image,name,level}) {
   }
 
   const Main = () => {
-    navigate('/');
+    navigate('/ChallengeList');
   }
 
   const handleBack = () => {

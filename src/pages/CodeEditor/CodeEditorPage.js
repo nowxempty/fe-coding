@@ -35,6 +35,7 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [showFeedbackPage, setShowFeedbackPage] = useState(false);
   const [isAllCompletedModalOpen, setIsAllCompletedModalOpen] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
 
 
   useEffect(() => {
@@ -76,6 +77,8 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
   }, [currentProblemIndex, language]);
 
   const runCode = async () => {
+    setIsRunning(true);
+    setResult('컴파일 진행중입니다...');
     try {
       const response = await fetch('https://salgoo9.site/api/code/run', {
         method: 'POST',
@@ -101,11 +104,15 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
       const results = data.results || [];
       setResult(JSON.stringify(results, null, 2));
     } catch (error) {
-      setResult(String(error));
-    }
+      setResult("컴파일 오류가 발생하였습니다. 코드를 다시 확인해 주세요.");
+    } finally {
+    setIsRunning(false);
+  }
   };
 
   const submitCode = async () => {
+    setIsRunning(true);
+    setResult('코드를 제출중입니다...');
     setTimerActive(false);
     try {
       const response = await fetch('https://salgoo9.site/api/code/submit', {
@@ -132,6 +139,8 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
 
     } catch (error) {
       setResult(String(error));
+    } finally {
+      setIsRunning(false);
     }
   };
 
@@ -177,6 +186,7 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
             handleLanguageChange={handleLanguageChange}
             selectedLanguage={language}
             currentProblemIndex={currentProblemIndex}
+            isRunning={isRunning}
           />
           <div className="content">
             <div className="grid-container">
