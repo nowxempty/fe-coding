@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Profile_Modal.css';
 
-const Modal = ({ isOpen, onClose, onSelect, setImage }) => {
+const Modal = ({ isOpen, onClose, onSelect }) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [file, setFile] = useState(null);
 
@@ -23,7 +23,6 @@ const Modal = ({ isOpen, onClose, onSelect, setImage }) => {
       return;
     }
     onSelect(file);
-    setImage(URL.createObjectURL(file));
     setImageUrl(null);
     setFile(null);
     onClose();
