@@ -33,19 +33,22 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
             } catch (error) {
                 console.error('Error fetching rankings', error);
                 setError('Error fetching rankings.');
-            } finally {
-                setIsLoading(false);
             }
         };
 
         if (isOpen) {
-            fetchRankings();
-            const timer = setTimeout(() => {
-                onClose();
-            }, 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [isOpen, onClose, roomId, problemId, access_Token]);
+          fetchRankings();
+      }
+  }, [isOpen, roomId, problemId, access_Token]);
+
+  useEffect(() => {
+      if (!isLoading && isOpen) {
+          const timer = setTimeout(() => {
+              onClose();
+          }, 5000);
+          return () => clearTimeout(timer);
+      }
+  }, [isLoading, isOpen, onClose]);
 
     if (!isOpen) return null;
 
@@ -54,7 +57,7 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
           <div className="ranking-modal-content">
             <h2>Ranking</h2>
             {isLoading ? (
-              <p>Loading...</p>
+              <p>순위가 집계중입니다...</p>
             ) : error ? (
               <p>{error}</p>
             ) : allFailed ? (

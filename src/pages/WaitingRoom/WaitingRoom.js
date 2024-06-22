@@ -124,6 +124,7 @@ const WaitingRoom = ({ access_Token }) => {
                 });
                 if (response.ok) {
                 }
+                setStart(true);
             } catch (error) {
                 console.error('시작 상태 확인 중 오류 발생:', error);
             }
