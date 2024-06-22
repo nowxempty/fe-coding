@@ -4,7 +4,7 @@ import Header from '../../components/Header/Header.js';
 import { Get_User_code, Get_Problem } from './Mypage_func.js';
 import Modal from './Code_Modal.js';
 import { refreshAccessToken } from '../../refreshAccessToken.js';
-import { VscAccount } from "react-icons/vsc";
+import UserProfileIcon from "../../Icon/UserProfileIcon";
 import './Mypage.css';
 
 function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserInfo, image, name, setName }) {
@@ -78,7 +78,13 @@ function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserI
             <Header access_Token={access_Token} userInfoms={userInfoms} setAccessToken={setAccessToken} image={profileImage} name={user_name} level={user_level} />
             <div className="MyPage">
                 <div className="MyPage_Proflie">
-                    <img className="MyPage_Proflie_img" src={profileImage ? profileImage : <VscAccount/>} alt="프로필 사진" />
+                    
+                    {profileImage ? (
+                            <img src={profileImage} alt="프로필 이미지" className="MyPage_Proflie_img" />
+                        ) : (
+                            <UserProfileIcon className="MyPage_Proflie_img" />
+                        )}
+
                     <div className="MyPage_User_name">{user_name}</div>
                     <div className="MyPage_Lv">Lv.{user_level}</div>
                     <div className="MyPage_Exp">

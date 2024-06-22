@@ -4,9 +4,8 @@ import './inform.css';
 import { handleDeleteAccount, Change_user_Inform, uploadImage } from './inform_func.js';
 import Header from '../../../components/Header/Header.js';
 import Modal from './Profile_Modal.js';
-import { VscAccount } from "react-icons/vsc";
 import { refreshAccessToken } from '../../../refreshAccessToken.js';
-
+import UserProfileIcon from '../../../components/Icon/UserProfileIcon.js';
 function InformPage({ userInfoms, setUserInfo, access_Token, setAccessToken}) {
   const [Nickname, setNickname] = useState('');
   const [Password, setPassword] = useState('');
@@ -76,7 +75,11 @@ function InformPage({ userInfoms, setUserInfo, access_Token, setAccessToken}) {
       <div className='Inform_container'>
         <div className="Inform_Page">
           <div className="Inform_profile-section">
-            <img className="Inform_profile-image" src={profileImage ? profileImage : <VscAccount/>} alt='프로필 이미지' />
+            {profileImage ? (
+                            <img src={profileImage} alt="프로필 이미지" className="Inform_profile-image" />
+                        ) : (
+                            <UserProfileIcon className="Inform_profile-image" />
+                        )}
             <div className="Inform_profile-button-container">
               <button className="Inform_Pic_Btn" onClick={openModal}>프로필 사진 변경</button>
             </div>
