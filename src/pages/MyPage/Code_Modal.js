@@ -25,12 +25,27 @@ const Modal = ({ isOpen, onClose, item, user_name }) => {
       };
       fetchProblem();
       fetchCode();
+
+      
     }
   }, [isOpen, user_name]);
+
+  // 특수 문자 변환 함수
+const convertSpecialChars = (str) => {
+  const modifiedStr = str.slice(1, -1);
+  return modifiedStr
+    .replace(/\\n/g, '\n')
+    .replace(/\\t/g, '\t')
+    .replace(/\\"/g, '"');
+};
 
   if (!problem) {
     return null;
   }
+
+
+
+  const formattedCode = convertSpecialChars(code);
 
   return (
     isOpen && (
@@ -57,14 +72,28 @@ const Modal = ({ isOpen, onClose, item, user_name }) => {
                 <br /><br />
                 <span>{problem.output}</span>
               </div>
+              
             </div>
 
               <div className="CodePage_codeContainer">
                   <Editor 
                     className='codeEditor'
                     language= "javascript"
-                    value={code}
+                    value={formattedCode}
                     theme="light"
+                    options={{
+                      readOnly: true,
+                      quickSuggestions: false,
+                      wordBasedSuggestions: false,
+                      parameterHints: false,
+                      suggestOnTriggerCharacters: false,
+                      acceptSuggestionOnEnter: 'off',
+                      tabCompletion: 'off',
+                      wordWrap: 'on',
+                      // 진단 비활성화
+                      'semanticValidation': false,
+                      'syntacticValidation': false
+                    }}
                   />
               </div>
             </div>
