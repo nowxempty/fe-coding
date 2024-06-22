@@ -3,7 +3,7 @@ import Challenge_header from './Challenge_header/Challenge_header';
 import Challenge_item from './Challenge-item/Challenge-item';
 import './Challenge_chart.css';
 
-const Challenge_chart = ({access_Token} ) => {
+const Challenge_chart = ({ access_Token }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [difficultyFilter, setDifficultyFilter] = useState('난이도');
     const [exampleData, setExampleData] = useState([]);
@@ -13,8 +13,6 @@ const Challenge_chart = ({access_Token} ) => {
     };
 
     useEffect(() => {
-        
-
         const fetchData = async () => {
             try {
                 const response = await fetch('https://salgoo9.site/api/rooms', {
@@ -28,7 +26,7 @@ const Challenge_chart = ({access_Token} ) => {
                     throw new Error('네트워크 응답이 좋지 않습니다');
                 }
                 const data = await response.json();
-                
+
                 // JSON 데이터를 콘솔 로그로 출력
                 console.log('API 응답 데이터:', data);
 
@@ -45,11 +43,19 @@ const Challenge_chart = ({access_Token} ) => {
 
                 setExampleData(filteredData);
             } catch (error) {
+                console.error('데이터를 가져오는데 오류가 발생했습니다:', error);
             }
         };
 
+        // 첫 번째 fetchData 호출
         fetchData();
-    }, []);
+
+        // 1초마다 fetchData 호출
+        const intervalId = setInterval(fetchData, 1000);
+
+        // 컴포넌트가 언마운트될 때 인터벌을 정리
+        return () => clearInterval(intervalId);
+    }, [access_Token]);
 
     return (
         <div className='Challenge_chart'>
