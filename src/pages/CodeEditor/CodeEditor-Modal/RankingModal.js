@@ -34,8 +34,6 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
           } catch (error) {
               console.error('Error fetching rankings', error);
               setError('Error fetching rankings.');
-          } finally {
-              setIsLoading(false);
           }
       };
   
@@ -78,7 +76,7 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
                     <span>{ranking.username}</span>
                     <span>Level: {ranking.level}</span>
                     <span>Extra EXP: {ranking.extraEXP}</span>
-                    <span>Time: {new Date(ranking.localDateTime).toLocaleString()}</span>
+                    <span>Time: {new Date(ranking.localDateTime.replace(" ", "T")).toLocaleString()}</span>
                   </li>
                 ))}
               </ul>
