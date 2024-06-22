@@ -46,7 +46,7 @@ const Modal = ({ isOpen, onClose, item, user_name }) => {
         <div className="Code_modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="CodePage">
             <header className="CodePage_header">
-              <div className="CodePage_timer">"12:30"</div>
+              <div className="CodePage_timer">{item.durationTile}</div>
             </header>
             <div className="CodePage_container">
             <div className="CodePage_problem">
