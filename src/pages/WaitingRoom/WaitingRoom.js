@@ -126,6 +126,22 @@ const WaitingRoom = ({ access_Token }) => {
                     const result = await response.json();
                     if (result.status === 'ONGOING') {
                         setStart(true);
+                        const deleteUrl = `https://salgoo9.site/api/rooms/${roomId}`;
+                        try {
+                            const deleteResponse = await fetch(deleteUrl, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'access': access_Token
+                                }
+                            });
+                            if (!deleteResponse.ok) {
+                                throw new Error('방 삭제 중 오류 발생');
+                            }
+                            navigate('/'); // ChallengeList 페이지로 이동
+                        } catch (deleteError) {
+                            console.error('방 삭제 중 오류 발생:', deleteError);
+                        }
                     }
                 }
             } catch (error) {
