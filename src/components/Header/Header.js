@@ -3,22 +3,17 @@ import './Header.css';
 import { useNavigate } from 'react-router-dom';
 import { logout } from './Header_func';
 import { SlArrowLeft , SlArrowRight } from "react-icons/sl";
-import UserProfileIcon from "../Icon/UserProfileIcon";
 import Logo from "../Icon/Logo.png";
 
 
-export default function Header({ access_Token, setAccessToken, image, name, level}) {
+export default function Header({ access_Token, setAccessToken}) {
   const navigate = useNavigate();
   const accessToken = access_Token;
-
-  const defaultImage = '/logo512.png';
   
   const nav_Logout = () =>{
     logout(navigate,setAccessToken);
   }
-  const Link_MyPage = () => {
-    navigate('/MyPage');
-  }
+
   const Login = () => {
     navigate('/Login');
   }
@@ -41,12 +36,7 @@ export default function Header({ access_Token, setAccessToken, image, name, leve
           <img src={Logo} alt="logo" />
         </div>
         {accessToken ? (
-          <div className="Header_user_box" onClick={() => Link_MyPage()}>
-            <img className="Header_user_box_Image" src={image ? image : defaultImage} alt={UserProfileIcon} />
-            <div className="Header_user_box_Text">{name}</div>
-            <div className="Level1">Level {level}</div>
-            <div className="Logout" onClick={() => nav_Logout()}>로그아웃</div>
-          </div>
+          <div className="Logout" onClick={() => nav_Logout()}>로그아웃</div>
         ) : (
           <div className="Header_Login_box">
             <div className="Header_Login" onClick={() => Login()}>로그인</div>

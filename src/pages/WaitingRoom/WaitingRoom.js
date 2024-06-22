@@ -124,7 +124,7 @@ const WaitingRoom = ({ access_Token ,setAccessToken }) => {
 
     return (
         <div>
-            <Header className={"Header"} access_Token={access_Token} setAccessToken={setAccessToken} image={userData.profileImage} name ={userData.name} level={userData.level} />
+            <Header className={"Header"} access_Token={access_Token} setAccessToken={setAccessToken} />
             <div style={{ display: 'flex', width: '100vw', height: '94vh', gap: '30px', justifyContent: 'center', alignItems: 'center' }}>
                 <div className="main_left">
                     <UserList access_Token={access_Token} refreshKey={refreshKey} setAllReady={setAllReady} />

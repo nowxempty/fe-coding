@@ -19,7 +19,7 @@ const ChallengeMainpage = ({ access_Token, setAccessToken, userInfoms }) => {
 
     return (
         <div style={{width:'100%',height:'100%'}}>
-            <Header access_Token={access_Token} setAccessToken={setAccessToken} image={userInfoms.profileImage} name={userInfoms.userName} level = {userInfoms.level} />
+            <Header access_Token={access_Token} setAccessToken={setAccessToken} />
             <div style={{display:'flex', gap:'10px',justifyContent:'center'}}>
                 <Challenge_chart access_Token={access_Token}/>
                 <div>

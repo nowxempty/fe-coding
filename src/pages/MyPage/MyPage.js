@@ -75,7 +75,7 @@ function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserI
 
     return (
         <div className='MyPage_container'>
-            <Header access_Token={access_Token} userInfoms={userInfoms} setAccessToken={setAccessToken} image={profileImage} name={user_name} level={user_level} />
+            <Header access_Token={access_Token} setAccessToken={setAccessToken}/>
             <div className="MyPage">
                 <div className="MyPage_Proflie">
                     <img className="MyPage_Proflie_img" src={profileImage ? profileImage : <VscAccount/>} alt="프로필 사진" />
