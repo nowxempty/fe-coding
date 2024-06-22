@@ -4,7 +4,7 @@ import Header from '../../components/Header/Header.js';
 import { Get_User_code, Get_Problem } from './Mypage_func.js';
 import Modal from './Code_Modal.js';
 import { refreshAccessToken } from '../../refreshAccessToken.js';
-import UserProfileIcon from "../../Icon/UserProfileIcon";
+import UserProfileIcon from "../../components/Icon/UserProfileIcon";
 import './Mypage.css';
 
 function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserInfo, image, name, setName }) {
@@ -75,7 +75,7 @@ function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserI
 
     return (
         <div className='MyPage_container'>
-            <Header access_Token={access_Token} userInfoms={userInfoms} setAccessToken={setAccessToken} image={profileImage} name={user_name} level={user_level} />
+            <Header access_Token={access_Token} setAccessToken={setAccessToken}/>
             <div className="MyPage">
                 <div className="MyPage_Proflie">
                     

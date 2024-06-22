@@ -8,7 +8,7 @@ import RoomInfo from "../WaitingRoom/RoomInfo/RoomInfo";
 import './WaitingRoom.css';
 import Button from "../../components/Button/Button";
 
-const WaitingRoom = ({ access_Token ,setAccessToken }) => {
+const WaitingRoom = ({ access_Token }) => {
     const navigate = useNavigate();
     const { roomId } = useParams();
     const location = useLocation();
@@ -17,10 +17,9 @@ const WaitingRoom = ({ access_Token ,setAccessToken }) => {
     const isHost = location.state?.isHost || false;
     const [isReady, setIsReady] = useState(false);
     const [refreshKey, setRefreshKey] = useState(0);
-    const [allReady, setAllReady] = useState(false); // 모든 사용자가 준비 상태인지 여부
-    const [start, setStart] = useState(false); // 시작 버튼 클릭 시 true로 설정
+    const [allReady, setAllReady] = useState(false);
+    const [start, setStart] = useState(false);
 
-    // 방 나가기 핸들러
     const handleExit = async () => {
         if (isHost) {
             const deleteUrl = `https://salgoo9.site/api/rooms/${roomId}`;
@@ -35,7 +34,7 @@ const WaitingRoom = ({ access_Token ,setAccessToken }) => {
                 if (!response.ok) {
                     throw new Error('네트워크 응답이 좋지 않습니다');
                 }
-                navigate('/'); // ChallengeList 페이지로 이동
+                navigate('/');
             } catch (error) {
                 console.error('방 삭제 중 오류 발생:', error);
             }
@@ -52,19 +51,19 @@ const WaitingRoom = ({ access_Token ,setAccessToken }) => {
                 if (!response.ok) {
                     throw new Error('네트워크 응답이 좋지 않습니다');
                 }
-                navigate('/'); 
+                navigate('/');
             } catch (error) {
                 console.error('방 떠나기 중 오류 발생:', error);
             }
         }
     };
 
-    // 준비 상태 핸들러
     const handleReady = async () => {
         const readyUrl = `https://salgoo9.site/api/rooms/${roomId}/ready`;
+        const unreadyUrl = `https://salgoo9.site/api/rooms/${roomId}/unready`;
 
         try {
-            const response = await fetch(readyUrl, {
+            const response = await fetch(isReady ? unreadyUrl : readyUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +80,6 @@ const WaitingRoom = ({ access_Token ,setAccessToken }) => {
         }
     };
 
-    // 사용자 정보 가져오기
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -93,13 +91,13 @@ const WaitingRoom = ({ access_Token ,setAccessToken }) => {
                     }
                 });
                 const result = await response.json();
-                console.log('API 응답:', result); // 응답을 콘솔에 출력
+                console.log('API 응답:', result);
                 const user = result.results[0];
                 const userData = {
                     id: user.userLoginId,
                     name: user.userName,
                     level: user.level,
-                    ranking: user.ranking, // rank 값은 응답에 포함되지 않으므로 0으로 설정
+                    ranking: user.ranking,
                     score: user.totalExpPoint,
                     challenges: user.myCodes.length,
                     profileImage: user.profileImage
@@ -113,9 +111,61 @@ const WaitingRoom = ({ access_Token ,setAccessToken }) => {
         fetchData();
     }, [access_Token]);
 
-    // 시작 버튼 핸들러
-    const handleStart = () => {
-        setStart(true); // 시작 버튼 클릭 시 상태를 true로 설정
+    useEffect(() => {
+        const checkStartStatus = async () => {
+            if (isHost) return;  // 호스트는 시작 상태를 확인하지 않음
+            try {
+                const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/start`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'access': access_Token
+                    }
+                });
+                if (response.ok) {
+                }
+                setStart(true);
+            } catch (error) {
+                console.error('시작 상태 확인 중 오류 발생:', error);
+            }
+        };
+
+        const intervalId = setInterval(checkStartStatus, 1000); // 1초마다 시작 상태 확인
+
+        return () => clearInterval(intervalId);
+    }, [access_Token, roomId, isHost]);
+
+    useEffect(() => {
+        const handleBeforeUnload = async (event) => {
+            event.preventDefault();
+            await handleExit();
+            event.returnValue = '';
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [isHost]);
+
+    const handleStart = async () => {
+        const startUrl = `https://salgoo9.site/api/rooms/${roomId}/start`;
+        try {
+            const response = await fetch(startUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'access': access_Token
+                }
+            });
+            if (!response.ok) {
+                throw new Error('네트워크 응답이 좋지 않습니다');
+            }
+            setStart(true);
+        } catch (error) {
+            console.error('방 시작 중 오류 발생:', error);
+        }
     };
 
     if (start && userData) {
@@ -124,7 +174,7 @@ const WaitingRoom = ({ access_Token ,setAccessToken }) => {
 
     return (
         <div>
-            <Header className={"Header"} access_Token={access_Token} setAccessToken={setAccessToken} image={userData.profileImage} name ={userData.name} level={userData.level} />
+            <Header className={"Header"} access_Token={access_Token} />
             <div style={{ display: 'flex', width: '100vw', height: '94vh', gap: '30px', justifyContent: 'center', alignItems: 'center' }}>
                 <div className="main_left">
                     <UserList access_Token={access_Token} refreshKey={refreshKey} setAllReady={setAllReady} />

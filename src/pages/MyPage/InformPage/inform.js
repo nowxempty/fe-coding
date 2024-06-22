@@ -71,7 +71,7 @@ function InformPage({ userInfoms, setUserInfo, access_Token, setAccessToken}) {
 
   return (
     <div className='Inform_body'>
-      <Header access_Token={access_Token} userInfoms={userInfoms} setAccessToken={setAccessToken} image={profileImage} name={profileName} level = {user_level}/>
+      <Header access_Token={access_Token} setAccessToken={setAccessToken}/>
       <div className='Inform_container'>
         <div className="Inform_Page">
           <div className="Inform_profile-section">

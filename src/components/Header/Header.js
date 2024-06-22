@@ -6,16 +6,14 @@ import { SlArrowLeft , SlArrowRight } from "react-icons/sl";
 import Logo from "../Icon/Logo.png";
 
 
-export default function Header({ access_Token, setAccessToken, image, name, level}) {
+export default function Header({ access_Token, setAccessToken}) {
   const navigate = useNavigate();
   const accessToken = access_Token;
   
   const nav_Logout = () =>{
     logout(navigate,setAccessToken);
   }
-  const Link_MyPage = () => {
-    navigate('/MyPage');
-  }
+
   const Login = () => {
     navigate('/Login');
   }
@@ -38,9 +36,7 @@ export default function Header({ access_Token, setAccessToken, image, name, leve
           <img src={Logo} alt="logo" />
         </div>
         {accessToken ? (
-          <div className="Header_user_box" onClick={() => Link_MyPage()}>
-            <div className="Logout" onClick={() => nav_Logout()}>로그아웃</div>
-          </div>
+          <div className="Logout" onClick={() => nav_Logout()}>로그아웃</div>
         ) : (
           <div className="Header_Login_box">
             <div className="Header_Login" onClick={() => Login()}>로그인</div>

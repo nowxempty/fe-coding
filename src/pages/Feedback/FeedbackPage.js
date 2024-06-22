@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Chatting from '../../components/Chatting/Chatting'
 import './FeedbackPage.css';
-import UserProfileIcon from '../../components/Icon/UserProfileIcon';
 
 const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComplete, access_Token }) => {
-  const [problems, setProblems] = useState(null);
+  const [problems, setProblems] = useState([]);
   const [feedbackData, setFeedbackData] = useState([]);
   const [selectedUserIndex, setSelectedUserIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -98,10 +97,9 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
     setSelectedUserIndex(index);
   };
 
-// FeedbackPage.js 내부
   return (
     <div className="feedback-page">
-      {isLoading ? (
+      {isLoading || problems.length === 0 || feedbackData.length === 0 ? (
         <p>Loading...</p>
       ) : (
         <>
@@ -119,9 +117,6 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
             </div>
             <div className="feedback-header-right">
               <button onClick={handleCompleteClick}>피드백 완료</button>
-              <div className="user-profile">
-                <UserProfileIcon />
-              </div>
             </div>
           </div>
           {selectedUserIndex !== null && (
@@ -131,11 +126,12 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
                 <h3>{problems[0][currentProblemIndex]?.title}</h3>
                 <div>{problems[0][currentProblemIndex]?.context}</div>
                 <div className="Input-Output">
-                  <h3>입력예시</h3>
+                  <h3>입력</h3>
                       <div>{problems[0][currentProblemIndex]?.input}</div>
-                  <h3>출력예시</h3>
+                  <h3>출력</h3>
                       <div>{problems[0][currentProblemIndex]?.output}</div>
                 </div>
+                <h3>입출력 예시</h3>
                 <div>{problems[0][currentProblemIndex]?.testCases.map((testCase, index) => (
                   <li key={index}>
                     <strong>Input:</strong> {testCase.input}<br />
