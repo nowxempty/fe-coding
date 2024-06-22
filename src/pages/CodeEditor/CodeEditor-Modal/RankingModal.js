@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './RankingModal.css';
+import profileIcon from '../../../components/Icon/UserProfileIcon';
 
 const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
     const [rankings, setRankings] = useState([]);
@@ -87,7 +88,7 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
                         {rankings.map((ranking, index) => (
                             <li key={index} className="ranking-item">
                                 <span>Rank: {ranking.rank}</span>
-                                <img src={ranking.profileImage} alt={`${ranking.username}'s profile`} />
+                                <img src={ranking.profileImage} alt={profileIcon} />
                                 <span>{ranking.username}</span>
                                 <span>Level: {ranking.level}</span>
                                 <span>Extra EXP: {ranking.extraEXP}</span>
