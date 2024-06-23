@@ -13,8 +13,8 @@ const WaitingRoom = ({ access_Token }) => {
     const { roomId } = useParams();
     const location = useLocation();
     const [userData, setUserData] = useState(null);
-    const hostName = location.state?.hostName || '';
-    const isHost = location.state?.isHost || false;
+    const [hostName, setHostName] = useState(location.state?.hostName || '');
+    const [isHost, setIsHost] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const [refreshKey, setRefreshKey] = useState(0);
     const [allReady, setAllReady] = useState(false);
@@ -34,7 +34,7 @@ const WaitingRoom = ({ access_Token }) => {
                 if (!response.ok) {
                     throw new Error('네트워크 응답이 좋지 않습니다');
                 }
-                navigate('/');
+                navigate('/ChallengeList');
             } catch (error) {
                 console.error('방 삭제 중 오류 발생:', error);
             }
@@ -51,7 +51,7 @@ const WaitingRoom = ({ access_Token }) => {
                 if (!response.ok) {
                     throw new Error('네트워크 응답이 좋지 않습니다');
                 }
-                navigate('/');
+                navigate('/ChallengeList');
             } catch (error) {
                 console.error('방 떠나기 중 오류 발생:', error);
             }
@@ -103,17 +103,19 @@ const WaitingRoom = ({ access_Token }) => {
                     profileImage: user.profileImage
                 };
                 setUserData(userData);
+                console.log('user.name:', userData.name, 'hostName:', hostName);
+                setIsHost(userData.name === hostName);
             } catch (error) {
                 console.error('API 요청 중 오류 발생:', error);
             }
         };
 
         fetchData();
-    }, [access_Token]);
+    }, [access_Token, hostName]);
 
     useEffect(() => {
         const checkStartStatus = async () => {
-            if (isHost) return;  // 호스트는 시작 상태를 확인하지 않음
+            if (isHost) return;
             try {
                 const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/status`, {
                     method: 'GET',
@@ -126,22 +128,6 @@ const WaitingRoom = ({ access_Token }) => {
                     const result = await response.json();
                     if (result.status === 'ONGOING') {
                         setStart(true);
-                        const deleteUrl = `https://salgoo9.site/api/rooms/${roomId}`;
-                        try {
-                            const deleteResponse = await fetch(deleteUrl, {
-                                method: 'DELETE',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'access': access_Token
-                                }
-                            });
-                            if (!deleteResponse.ok) {
-                                throw new Error('방 삭제 중 오류 발생');
-                            }
-                            navigate('/'); // ChallengeList 페이지로 이동
-                        } catch (deleteError) {
-                            console.error('방 삭제 중 오류 발생:', deleteError);
-                        }
                     }
                 }
             } catch (error) {
@@ -149,24 +135,10 @@ const WaitingRoom = ({ access_Token }) => {
             }
         };
 
-        const intervalId = setInterval(checkStartStatus, 800); // 1초마다 시작 상태 확인
+        const intervalId = setInterval(checkStartStatus, 1000);
 
         return () => clearInterval(intervalId);
     }, [access_Token, roomId, isHost]);
-
-    useEffect(() => {
-        const handleBeforeUnload = async (event) => {
-            event.preventDefault();
-            await handleExit();
-            event.returnValue = '';
-        };
-
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [isHost]);
 
     const handleStart = async () => {
         const startUrl = `https://salgoo9.site/api/rooms/${roomId}/start`;
@@ -187,6 +159,11 @@ const WaitingRoom = ({ access_Token }) => {
         }
     };
 
+    const handleFetchRoomData = (hostName) => {
+        setHostName(hostName);
+        setIsHost(userData && userData.name === hostName);
+    };
+
     if (start && userData) {
         return <CodeEditorPage userId={userData.id} roomId={roomId} access_Token={access_Token} />;
     }
@@ -200,7 +177,7 @@ const WaitingRoom = ({ access_Token }) => {
                     <Chatting access_Token={access_Token} roomId={roomId} userName={hostName || "Unknown"} />
                 </div>
                 <div className="main_right">
-                    <RoomInfo access_Token={access_Token} isHost={isHost} />
+                    <RoomInfo access_Token={access_Token} onFetchRoomData={handleFetchRoomData} />
                     <div className="Button_Group">
                         {isHost ? (
                             <Button className={"Start"} text={"시작"} onClick={handleStart} disabled={!allReady} />

@@ -67,7 +67,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 85px;
+    width: 25% !important;
     height: 28px;
     color: #060606;
     border: solid 2px #777777;

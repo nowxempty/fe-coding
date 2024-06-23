@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Challenge_header from './Challenge_header/Challenge_header';
 import Challenge_item from './Challenge-item/Challenge-item';
 import './Challenge_chart.css';
@@ -7,6 +7,7 @@ const Challenge_chart = ({ access_Token }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [difficultyFilter, setDifficultyFilter] = useState('난이도');
     const [exampleData, setExampleData] = useState([]);
+    const previousDataRef = useRef([]);
 
     const handleDifficultyChange = (difficulty) => {
         setDifficultyFilter(difficulty === difficultyFilter ? '난이도' : difficulty);
@@ -30,18 +31,25 @@ const Challenge_chart = ({ access_Token }) => {
                 // JSON 데이터를 콘솔 로그로 출력
                 console.log('API 응답 데이터:', data);
 
-                // 데이터 형식 변환
-                const filteredData = data.map(item => ({
-                    id: item.id,
-                    roomTitle: item.roomTitle,
-                    hostName: item.hostName,
-                    averageDifficulty: item.averageDifficulty,
-                    description: item.description,
-                    duration: item.duration,
-                    problems: item.problems.map(String) // 문제 번호를 문자열로 변환
-                }));
+                // 데이터 형식 변환 및 필터링
+                const filteredData = data
+                    .filter(item => item.roomStatus !== 'ONGOING' && item.roomStatus !== 'FULL')
+                    .map(item => ({
+                        id: item.id,
+                        roomTitle: item.roomTitle,
+                        hostName: item.hostName,
+                        averageDifficulty: item.averageDifficulty,
+                        description: item.description,
+                        duration: item.duration,
+                        roomStatus: item.roomStatus,
+                        problems: item.problems.map(String) // 문제 번호를 문자열로 변환
+                    }));
 
-                setExampleData(filteredData);
+                // 이전 데이터와 비교
+                if (JSON.stringify(previousDataRef.current) !== JSON.stringify(filteredData)) {
+                    setExampleData(filteredData);
+                    previousDataRef.current = filteredData;
+                }
             } catch (error) {
                 console.error('데이터를 가져오는데 오류가 발생했습니다:', error);
             }
