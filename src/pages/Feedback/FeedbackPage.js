@@ -8,6 +8,7 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
   const [feedbackData, setFeedbackData] = useState([]);
   const [selectedUserIndex, setSelectedUserIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCompleteButtonDisabled, setIsCompleteButtonDisabled] = useState(false);
   const location = useLocation();
   const hostName = location.state?.hostName || '';
 
@@ -54,6 +55,7 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
   }, [problemId, roomId, access_Token]);
 
   const handleCompleteClick = async () => {
+    setIsCompleteButtonDisabled(true);
     try {
       const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/ready`, {
         method: 'POST', 
@@ -116,22 +118,25 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
               ))}
             </div>
             <div className="feedback-header-right">
-              <button onClick={handleCompleteClick}>피드백 완료</button>
+              <button onClick={handleCompleteClick} disabled={isCompleteButtonDisabled}>피드백 완료</button>
             </div>
           </div>
           {selectedUserIndex !== null && (
             <div className="feedback-content">
               <div className="problem-container">
-                <h2>Problem</h2>
-                <h3>{problems[0][currentProblemIndex]?.title}</h3>
+                <h3>문제: {problems[0][currentProblemIndex]?.title}</h3>
+                <hr />
                 <div>{problems[0][currentProblemIndex]?.context}</div>
                 <div className="Input-Output">
                   <h3>입력</h3>
+                  <hr />
                       <div>{problems[0][currentProblemIndex]?.input}</div>
                   <h3>출력</h3>
+                  <hr />
                       <div>{problems[0][currentProblemIndex]?.output}</div>
                 </div>
                 <h3>입출력 예시</h3>
+                <hr />
                 <div>{problems[0][currentProblemIndex]?.testCases.map((testCase, index) => (
                   <li key={index}>
                     <strong>Input:</strong> {testCase.input}<br />

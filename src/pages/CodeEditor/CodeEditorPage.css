@@ -156,6 +156,7 @@
 
 .result-container {
     height: 27vh;
+    overflow: auto;
 }
 
 .problem-container h3 {

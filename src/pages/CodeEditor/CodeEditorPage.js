@@ -191,8 +191,7 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
           <div className="content">
             <div className="grid-container">
               <div className="problem-container">
-                <h2>문제</h2>
-                <h3>{problems[0][currentProblemIndex]?.title}</h3>
+                <h3>문제: {problems[0][currentProblemIndex]?.title}</h3>
                 <hr />
                 <div>{problems[0][currentProblemIndex]?.context}</div>
                 <div className="Input-Output">
@@ -226,30 +225,38 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
                   />
                 </div>
                 <div className="result-container">
-                  <h3>Result</h3>
-                  {(() => {
-                    try {
-                      const parsedResult = JSON.parse(result);
-                      return (
-                        <div>
-                          {parsedResult.map((item, index) => (
-                            <div key={index} className="result-item">
-                              <p>잘못된 카운트 횟수: {item.wrongCount}</p>
-                              <p>테스트 케이스:</p>
-                              <pre>
-                                {Object.entries(item.testCase).map(([key, value]) => (
-                                  <div key={key}>{key}: {value}</div>
-                                ))}
-                              </pre>
-                            </div>
-                          ))}
-                        </div>
-                      );
-                    } catch (error) {
-                      return <div>{result}</div>;
-                    }
-                  })()}
-                </div>
+  <h3>Result</h3>
+  {(() => {
+    try {
+      const parsedResult = JSON.parse(result);
+      return (
+        <div>
+          {parsedResult.map((item, index) => (
+            <div key={index} className="result-item">
+              <p>잘못된 카운트 횟수: {item.wrongCount}</p>
+              {item.wrongCount === 0 ? (
+                <p>정답입니다!</p>
+              ) : (
+                item.testCase && (
+                  <>
+                    <p>테스트 케이스:</p>
+                    <pre>
+                      {Object.entries(item.testCase).map(([key, value]) => (
+                        <div key={key}>{key}: {value}</div>
+                      ))}
+                    </pre>
+                  </>
+                )
+              )}
+            </div>
+          ))}
+        </div>
+      );
+    } catch (error) {
+      return <div>{result}</div>;
+    }
+  })()}
+</div>
               </div>
             </div>
           </div>
