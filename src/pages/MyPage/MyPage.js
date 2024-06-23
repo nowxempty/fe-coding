@@ -51,6 +51,27 @@ function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserI
         } catch (error) {
             console.error('오류 발생:', error);
         }
+
+        const adjustFontSizeToFit = (elementId) => {
+            const element = document.getElementById(elementId);
+            const containerWidth = element.clientWidth;
+            const containerHeight = element.clientHeight;
+        
+            // 임시적으로 매우 큰 글자 크기로 설정하여 최소 크기를 구합니다.
+            element.style.fontSize = '40px';
+            let fontSize = 40;
+        
+            while (element.scrollWidth > containerWidth || element.scrollHeight > containerHeight) {
+                fontSize -= 1;
+                element.style.fontSize = fontSize + 'px';
+        
+                // 글자 크기가 너무 작아지면 루프를 종료합니다.
+                if (fontSize <= 10) {
+                    break;
+                }
+            }
+        }
+        adjustFontSizeToFit('MyPage_User_name');
     }, []);
 
     const handleinformClick = () => {
@@ -73,6 +94,7 @@ function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserI
         setIsModalOpen(false);
     };
 
+    
     return (
         <div className='MyPage_container'>
             <Header access_Token={access_Token} setAccessToken={setAccessToken}/>
@@ -85,7 +107,7 @@ function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserI
                             <UserProfileIcon className="MyPage_Proflie_img" />
                         )}
 
-                    <div className="MyPage_User_name">{user_name}</div>
+                    <div id = "MyPage_User_name" className="MyPage_User_name">{user_name}</div>
                     <div className="MyPage_Lv">Lv.{user_level}</div>
                     <div className="MyPage_Exp">
                         <div className="MyPage_TotalExp" style={{ width: `${total_exp}%` }} ></div>

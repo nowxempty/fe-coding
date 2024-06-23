@@ -45,15 +45,18 @@
 }
 
 .MyPage_User_name {
-    width: 174px;
+    width: 200px;
     height: 70px;
     color: black;
-    font-size: 40px;
+    
     font-family: 'Gmarket Sans TTF', sans-serif;
     font-weight: 400;
     text-align: center;
     margin-top: 30px;
+    white-space: nowrap; /* 줄바꿈 방지 */
+    
 }
+
 
 .MyPage_Lv {
     color: black;
@@ -112,12 +115,13 @@
 .MyPage_RecentWork {
     flex-grow: 2;
     width: 949.01px;
-    height: 650px;
+    height: 70vh;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly; 
     align-items: center;
+    padding-right: 30px;
 }
 
 .MyPage_RecentWork_title {
