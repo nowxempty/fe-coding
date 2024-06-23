@@ -1,4 +1,3 @@
-/* 전체 페이지 스타일 */
 .code-editor-page {
     display: flex;
     flex-direction: column;
@@ -167,4 +166,23 @@
 .result-overflow {
     height: 23vh;
     overflow: auto;
+}
+
+.test-case-container {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.test-case-item {
+    margin: 5px 0;
+}
+
+.test-case-input,
+.test-case-output {
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 5px;
 }
