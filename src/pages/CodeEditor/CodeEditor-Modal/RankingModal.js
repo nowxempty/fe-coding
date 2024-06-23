@@ -55,13 +55,13 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
 
     useEffect(() => {
         let closeTimer;
-        if (rankings.length > 0) {
+        if (rankings.length > 0 || allFailed) {
             closeTimer = setTimeout(() => {
                 onClose();
             }, 5000); // 5초 후에 모달 닫기
         }
         return () => clearTimeout(closeTimer);
-    }, [rankings, onClose]);
+    }, [rankings, allFailed, onClose]);
 
     if (!isOpen) return null;
 
