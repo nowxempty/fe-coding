@@ -44,7 +44,7 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
 
         if (isOpen) {
             fetchRankings();
-            fetchTimer = setInterval(fetchRankings, 5000);
+            fetchTimer = setInterval(fetchRankings, 6000);
         }
 
         return () => {
