@@ -23,7 +23,6 @@ const Chatting = ({ userName,access_Token }) => {
 
         // STOMP 연결 설정
         stompClient.connect({ "access": getTokenFromSomeWhere() }, (frame) => {
-            console.log('Connected to the server: ' + frame);
             setConnected(true);
 
             // Room ID로 연결된 방을 구독

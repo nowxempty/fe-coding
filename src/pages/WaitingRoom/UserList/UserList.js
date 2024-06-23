@@ -32,7 +32,6 @@ const UserList = ({ access_Token, refreshKey, setAllReady }) => {
                 }));
                 
                 setUsers(mappedData); // 상태에 데이터 설정
-                console.log(mappedData.length)
                 setAllReady(mappedData.every(user => user.ready)); // 모든 사용자가 ready인지 여부를 설정
             } catch (error) {
                 setError(error.message);

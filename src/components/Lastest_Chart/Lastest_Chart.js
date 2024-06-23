@@ -18,7 +18,6 @@ const Lastest_Chart = ({ access_Token, hideMyChallengeButton = false, setModalOp
                     }
                 });
                 const result = await response.json();
-                console.log('API 응답:', result); // 응답을 콘솔에 출력
                 const user = result.results[0];
 
                 // userCodes 배열에서 마지막 4개의 problemName을 추출하여 최근 챌린지 설정

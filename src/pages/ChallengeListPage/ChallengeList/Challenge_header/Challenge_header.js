@@ -47,7 +47,6 @@ const Challenge_header = ({ onSearch, onDifficultyChange }) => {
                         <div className="dropdown-item" style={{ color: '#cc7620' }} onClick={() => handleDifficultySelect('bronze')}>Bronze</div>
                         <div className="dropdown-item" style={{ color: '#636088' }} onClick={() => handleDifficultySelect('silver')}>Silver</div>
                         <div className="dropdown-item" style={{ color: '#c6c62c' }} onClick={() => handleDifficultySelect('gold')}>Gold</div>
-                        <div className="dropdown-item" style={{ color: '#38BB64' }} onClick={() => handleDifficultySelect('platinum')}>Platinum</div>
                     </div>
                 )}
             </div>
