@@ -13,50 +13,51 @@
     justify-content: space-between; /* 가로로 일렬 배치하고 요소들 사이에 공간 배분 */
     align-items: center; /* 세로 중앙 정렬 */
     background: white;
-    padding: 0 20px; /* 좌우 패딩 추가 */
+    padding: 0 0 0 20px; /* 좌우 패딩 추가 */
     box-sizing: border-box; /* 패딩을 포함한 박스 사이징 설정 */
   }
   
   .WebIde {
     cursor: pointer;
     display: flex;
-    width: 150px;
+    width: 180px;
     height: 60px;
   }
   .WebIde img{
-    height: 100px;
-    width: 100px  ;
+    height: 55px;
+    width: 180px;
+    margin: auto;
   }
   
 
   .Header_rightsection{
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap:10px;
+    width: 14%;
+    padding: 0;
   }
   
   .Header_user_box, .Header_Login_box {
     display: flex;
     align-items: center; /* 세로 중앙 정렬 */
-    flex-grow: 0.5;
     cursor: pointer;
-  }
-  .Header_user_box * {
-    margin-left: 20px;
   }
   
   .Logout, .Header_Login {
     color: #919191;
     font-size: 15px;
     font-family: 'Inter', sans-serif;
+    height: 20px;
     font-weight: 400;
     word-wrap: break-word;
-    flex-grow: 0.5;
     cursor: pointer;
   }
 
   .navi_btn{
-    width: 60px;
+    width: 40%;
     height: 50px;
-    margin-left: 20px;
     display: flex;
     flex-direction: row;
     justify-content: center;
