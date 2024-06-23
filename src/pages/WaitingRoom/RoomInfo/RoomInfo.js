@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import "./RoomInfo.css";
 
-const RoomInfo = ({access_Token}) => {
+const RoomInfo = ({ access_Token, onFetchRoomData }) => {
     const [roomData, setRoomData] = useState(null);
-    const { roomId } = useParams(); // useParams 훅을 사용하여 roomId를 가져옵니다.
+    const { roomId } = useParams();
 
     const handleJoin = async (roomId) => {
-        const access = access_Token
+        const access = access_Token;
         try {
             const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}`, {
                 method: 'GET',
@@ -22,6 +22,7 @@ const RoomInfo = ({access_Token}) => {
             const data = await response.json();
             setRoomData(data);
             console.log('API 응답 데이터:', data);
+            onFetchRoomData(data.hostName); // Pass hostName to parent component
         } catch (error) {
             console.error('Error:', error);
         }

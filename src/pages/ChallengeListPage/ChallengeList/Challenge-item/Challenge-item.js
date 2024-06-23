@@ -1,16 +1,16 @@
-// Challenge-item.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../components/Button/Button";
 import ResetIcon from '../../../../components/Icon/reset';
 import Downicon from '../../../../components/Icon/downicon';
 import Upicon from '../../../../components/Icon/upicon';
-
 import "./Challenge-item.css";
 
 const ChallengeItem = ({ access_Token, data = [], searchTerm, difficultyFilter }) => {
     const [sortedData, setSortedData] = useState(data);
     const [sortConfig, setSortConfig] = useState({ key: '', direction: '' });
+    const [participants, setParticipants] = useState({});
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     const difficultyMapping = {
@@ -35,6 +35,43 @@ const ChallengeItem = ({ access_Token, data = [], searchTerm, difficultyFilter }
         setSortedData(filteredData);
     }, [data, searchTerm, difficultyFilter]);
 
+    useEffect(() => {
+        const fetchParticipants = async (roomId) => {
+            try {
+                const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/participants`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'access': access_Token
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('네트워크 응답이 좋지 않습니다');
+                }
+                const data = await response.json();
+                return data.length; 
+            } catch (error) {
+                console.error('네트워크 오류 발생:', error);
+                return 0;
+            }
+        };
+
+        const fetchAllParticipants = async () => {
+            const participantsCount = {};
+            for (const item of data) {
+                const count = await fetchParticipants(item.id);
+                participantsCount[item.id] = count;
+            }
+            setParticipants(participantsCount);
+        };
+
+        fetchAllParticipants();
+    }, [access_Token, data]);
+
+    useEffect(() => {
+        console.log("Participants:", participants);
+    }, [participants]);
+
     const sortData = (key) => {
         let direction = 'ascending';
         if (sortConfig.key === key && sortConfig.direction === 'ascending') {
@@ -53,26 +90,6 @@ const ChallengeItem = ({ access_Token, data = [], searchTerm, difficultyFilter }
 
         setSortedData(sortedArray);
         setSortConfig({ key, direction });
-    };
-
-    const sortByRoomId = () => {
-        let direction = 'ascending';
-        if (sortConfig.key === 'id' && sortConfig.direction === 'ascending') {
-            direction = 'descending';
-        }
-
-        const sortedArray = [...sortedData].sort((a, b) => {
-            if (a.id < b.id) {
-                return direction === 'ascending' ? -1 : 1;
-            }
-            if (a.id > b.id) {
-                return direction === 'ascending' ? 1 : -1;
-            }
-            return 0;
-        });
-
-        setSortedData(sortedArray);
-        setSortConfig({ key: 'id', direction });
     };
 
     const sortByDifficulty = () => {
@@ -95,6 +112,29 @@ const ChallengeItem = ({ access_Token, data = [], searchTerm, difficultyFilter }
         setSortConfig({ key: 'averageDifficulty', direction });
     };
 
+    const sortByParticipants = () => {
+        let direction = 'ascending';
+        if (sortConfig.key === 'participants' && sortConfig.direction === 'ascending') {
+            direction = 'descending';
+        }
+
+        const sortedArray = [...sortedData].sort((a, b) => {
+            const participantsA = participants[a.id] || 0;
+            const participantsB = participants[b.id] || 0;
+
+            if (participantsA < participantsB) {
+                return direction === 'ascending' ? -1 : 1;
+            }
+            if (participantsA > participantsB) {
+                return direction === 'ascending' ? 1 : -1;
+            }
+            return 0;
+        });
+
+        setSortedData(sortedArray);
+        setSortConfig({ key: 'participants', direction });
+    };
+
     const resetSort = () => {
         setSortedData(data);
         setSortConfig({ key: '', direction: '' });
@@ -114,6 +154,15 @@ const ChallengeItem = ({ access_Token, data = [], searchTerm, difficultyFilter }
     };
 
     const handleJoin = async (roomId) => {
+        const participantCount = participants[roomId] || 0;
+        if (participantCount >= 8) { // 1명 이상이면 모달 표시
+            setShowModal(true);
+            setTimeout(() => {
+                setShowModal(false);
+            }, 700);
+            return;
+        }
+
         const joinUrl = `https://salgoo9.site/api/rooms/${roomId}/join`;
 
         try {
@@ -137,8 +186,8 @@ const ChallengeItem = ({ access_Token, data = [], searchTerm, difficultyFilter }
     return (
         <div className='Challenge_item'>
             <div className='Challenge_header'>
-                <div onClick={sortByRoomId} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                    <span>방 생성 번호</span> <span>{renderIcon('id')}</span>
+                <div onClick={sortByParticipants} className="participants_count_header" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                    <span>인원수</span> <span>{renderIcon('participants')}</span>
                 </div>
                 <div onClick={() => sortData('roomTitle')} className="title" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
                     <span>제목</span> <span>{renderIcon('roomTitle')}</span>
@@ -154,18 +203,30 @@ const ChallengeItem = ({ access_Token, data = [], searchTerm, difficultyFilter }
                 </div>
             </div>
             <div className='Challenge_list'>
-                {sortedData.map((item, index) => (
-                    <div className='Challenge_list_item' key={index}>
-                        <div className="room_id">
-                            {item.id}
-                        </div>
+                {sortedData.map((item) => (
+                    <div className='Challenge_list_item' key={item.id}>
+                        <div className="participants_count">{`${participants[item.id] || 0} / 8`}</div>
                         <div className="title">{item.roomTitle}</div>
                         <div className={`difficulty`}>{renderDifficulty(item.averageDifficulty)}</div>
                         <div className="creator">{item.hostName}</div>
-                        <div><Button className="participants_button" text="참가" onClick={() => handleJoin(item.id)} /></div>
+                        <div>
+                            <Button 
+                                className="participants_button" 
+                                text="참가" 
+                                onClick={() => handleJoin(item.id)} 
+                                disabled={participants[item.id] >= 8} 
+                            />
+                        </div>
                     </div>
                 ))}
             </div>
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <p>현재 참가 인원이 가득 찼습니다.</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -1,24 +1,43 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../Button/Button';
 import './Lastest_Chart.css';
 
-const Lastest_Chart = ({access_Token, hideMyChallengeButton = false, setModalOpen }) => {
-    const recentChallenges = [
-        "챌린지 A",
-        "챌린지 B",
-        "챌린지 C",
-        "챌린지 D"
-    ];
+const Lastest_Chart = ({ access_Token, hideMyChallengeButton = false, setModalOpen }) => {
+    const [recentChallenges, setRecentChallenges] = useState([]);
+    const navigate = useNavigate();
 
-    const Navigate = useNavigate();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('https://salgoo9.site/api/myInfo', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'access': access_Token
+                    }
+                });
+                const result = await response.json();
+                console.log('API 응답:', result); // 응답을 콘솔에 출력
+                const user = result.results[0];
+
+                // userCodes 배열에서 마지막 4개의 problemName을 추출하여 최근 챌린지 설정
+                const recentChallenges = user.myCodes.slice(-4).map(code => code.problemName);
+                setRecentChallenges(recentChallenges);
+            } catch (error) {
+                console.error('API 요청 중 오류 발생:', error);
+            }
+        };
+
+        fetchData();
+    }, [access_Token]);
 
     const handleCreateChallenge = () => {
         setModalOpen(true);
     };
 
     const handleMyChallenge = () => {
-        Navigate("/MyPage");
+        navigate("/MyPage");
     };
 
     return (
