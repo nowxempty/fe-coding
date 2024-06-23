@@ -12,8 +12,6 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
   const location = useLocation();
   const hostName = location.state?.hostName || '';
 
-
-
   useEffect(() => {
     const fetchProblems = async () => {
       try {
@@ -84,7 +82,7 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
           }
         });
         const data = await response.json();
-        const allUsersCompleted = data.results
+        const allUsersCompleted = data.results;
         if (allUsersCompleted[0]) {
           clearInterval(intervalId);
           onComplete();
@@ -107,13 +105,13 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
         <>
           <div className="feedback-header">
             <div className="feedback-header-left">
-              {feedbackData && feedbackData.map((feedback, index) => (
+              {feedbackData[0] && feedbackData[0].map((feedback, index) => (
                 <button
                   key={index}
                   onClick={() => handleUserClick(index)}
                   className={selectedUserIndex === index ? 'selected-button' : ''}
                 >
-                  {feedback[0].userName}
+                  {feedback.userName}
                 </button>
               ))}
             </div>
@@ -121,7 +119,7 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
               <button onClick={handleCompleteClick} disabled={isCompleteButtonDisabled}>피드백 완료</button>
             </div>
           </div>
-          {selectedUserIndex !== null && (
+          {selectedUserIndex !== null && feedbackData[0][selectedUserIndex] && (
             <div className="feedback-content">
               <div className="problem-container">
                 <h3>문제: {problems[0][currentProblemIndex]?.title}</h3>
@@ -130,10 +128,10 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
                 <div className="Input-Output">
                   <h3>입력</h3>
                   <hr />
-                      <div>{problems[0][currentProblemIndex]?.input}</div>
+                  <div>{problems[0][currentProblemIndex]?.input}</div>
                   <h3>출력</h3>
                   <hr />
-                      <div>{problems[0][currentProblemIndex]?.output}</div>
+                  <div>{problems[0][currentProblemIndex]?.output}</div>
                 </div>
                 <h3>입출력 예시</h3>
                 <hr />
@@ -145,8 +143,8 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
                 ))}</div>
               </div>
               <div className="code-container">
-                <h2>{feedbackData[selectedUserIndex][0].userName}의 코드</h2>
-                <pre>{feedbackData[selectedUserIndex][0].code}</pre>
+                <h2>{feedbackData[0][selectedUserIndex].userName}의 코드</h2>
+                <pre>{feedbackData[0][selectedUserIndex].code}</pre>
               </div>
               <div className="chat-container">
                 <Chatting access_Token={access_Token} roomId={roomId} userName={hostName || "Unknown"}/>
@@ -158,6 +156,5 @@ const FeedbackPage = ({ roomId, problemId, currentProblemIndex, userId, onComple
     </div>
   );
 };
-
 
 export default FeedbackPage;

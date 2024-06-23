@@ -14,6 +14,7 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
 
         const fetchRankings = async () => {
             setIsLoading(true);
+            setError(null);  // 새로 요청을 시작할 때 에러 상태 초기화
             try {
                 const response = await fetch(`https://salgoo9.site/api/rooms/${roomId}/score?problemId=${problemId}`, {
                     method: 'GET',
@@ -28,22 +29,12 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
                     const filteredRankings = data.results[0].filter(ranking => ranking.rank !== 0);
                     setRankings(filteredRankings);
                     const allRanksAreZero = data.results[0].every(ranking => ranking.rank === 0);
-                    if (allRanksAreZero) {
-                        setAllFailed(true);
-                    } else {
-                        setAllFailed(false);
-                    }
-                    setIsLoading(false);
-
-                    // 모달을 5초 후에 닫기
-                    closeTimer = setTimeout(() => {
-                        onClose();
-                    }, 5000);
+                    setAllFailed(allRanksAreZero);
                 } else {
                     setRankings([]);
                     setError('순위가 집계중입니다...');
-                    setIsLoading(false);
                 }
+                setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching rankings', error);
                 setError('Error fetching rankings.');
@@ -53,7 +44,7 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
 
         if (isOpen) {
             fetchRankings();
-            fetchTimer = setInterval(fetchRankings, 5000);
+            fetchTimer = setInterval(fetchRankings, 6000);
         }
 
         return () => {
@@ -64,13 +55,13 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
 
     useEffect(() => {
         let closeTimer;
-        if (rankings.length > 0) {
+        if (rankings.length > 0 || allFailed) {
             closeTimer = setTimeout(() => {
                 onClose();
             }, 5000); // 5초 후에 모달 닫기
         }
         return () => clearTimeout(closeTimer);
-    }, [rankings, onClose]);
+    }, [rankings, allFailed, onClose]);
 
     if (!isOpen) return null;
 
