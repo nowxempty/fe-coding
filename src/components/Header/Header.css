@@ -1,72 +1,79 @@
 .nav_body {
-  width: 100%; /* nav의 너비를 100%로 설정 */
-  display: flex;
-  justify-content: center; /* 가로 중앙 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-  border-bottom: 1px #949494 solid;
-}
+    width: 100%; /* nav의 너비를 100%로 설정 */
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    border-bottom: 1px #949494 solid;
+  }
+  
+  .Header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between; /* 가로로 일렬 배치하고 요소들 사이에 공간 배분 */
+    align-items: center; /* 세로 중앙 정렬 */
+    background: white;
+    padding: 0 0 0 20px; /* 좌우 패딩 추가 */
+    box-sizing: border-box; /* 패딩을 포함한 박스 사이징 설정 */
+  }
+  
+  .WebIde {
+    cursor: pointer;
+    display: flex;
+    width: 180px;
+    height: 60px;
+  }
+  .WebIde img{
+    height: 55px;
+    width: 180px;
+    margin: auto;
+  }
+  
 
-.Header {
-  width: 100%;
-  height: 60px;
-  display: flex;
-  justify-content: space-between; /* 가로로 일렬 배치하고 요소들 사이에 공간 배분 */
-  align-items: center; /* 세로 중앙 정렬 */
-  background: white;
-  padding: 0 20px; /* 좌우 패딩 추가 */
-  box-sizing: border-box; /* 패딩을 포함한 박스 사이징 설정 */
-}
+  .Header_rightsection{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap:10px;
+    width: 14%;
+    padding: 0;
+  }
+  
+  .Header_user_box, .Header_Login_box {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    cursor: pointer;
+  }
+  
+  .Logout, .Header_Login {
+    color: #919191;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    height: 20px;
+    font-weight: 400;
+    word-wrap: break-word;
+    cursor: pointer;
+  }
 
-.WebIde {
-  cursor: pointer;
-  display: flex;
-  width: 150px;
-  height: 60px;
-}
-.WebIde img{
-  height: 100px;
-  width: 100px  ;
-}
+  .navi_btn{
+    width: 40%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+   }
 
-
-.Header_rightsection{
-  display: flex;
-}
-
-.Header_user_box, .Header_Login_box {
-  display: flex;
-  align-items: center; /* 세로 중앙 정렬 */
-  flex-grow: 0.5;
-  cursor: pointer;
-}
-.Header_user_box * {
-  margin-left: 20px;
-}
-
-.Logout, .Header_Login {
-  color: #919191;
-  font-size: 15px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  word-wrap: break-word;
-  flex-grow: 0.5;
-  cursor: pointer;
-}
-
-.navi_btn{
-  width: 60px;
-  height: 50px;
-  margin-left: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
- }
-
- .navi_btn button {
-  background: white;
-  border: none;
- } 
+   .navi_btn button {
+    background: white;
+    border: none;
+   } 
+   
+   .navi_btn button .icon{
+    width: 40px;
+    height: 50px;
+  
+   }
  
  .navi_btn button .icon{
   width: 40px;

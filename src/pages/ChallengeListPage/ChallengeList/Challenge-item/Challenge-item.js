@@ -8,7 +8,7 @@ import Upicon from '../../../../components/Icon/upicon';
 
 import "./Challenge-item.css";
 
-const ChallengeItem = ({access_Token, data = [], searchTerm, difficultyFilter }) => {
+const ChallengeItem = ({ access_Token, data = [], searchTerm, difficultyFilter }) => {
     const [sortedData, setSortedData] = useState(data);
     const [sortConfig, setSortConfig] = useState({ key: '', direction: '' });
     const navigate = useNavigate();
@@ -114,7 +114,6 @@ const ChallengeItem = ({access_Token, data = [], searchTerm, difficultyFilter })
     };
 
     const handleJoin = async (roomId) => {
-        
         const joinUrl = `https://salgoo9.site/api/rooms/${roomId}/join`;
 
         try {
@@ -127,9 +126,11 @@ const ChallengeItem = ({access_Token, data = [], searchTerm, difficultyFilter })
             });
             const result = await response.json();
             console.log('API 응답:', result);
-            navigate(`/room/${roomId}`, { state: { isHost: false } });
+
+            const joinedUserName = result.name;
+            navigate(`/room/${roomId}`, { state: { name: joinedUserName } });
         } catch (error) {
-            
+            console.error('참가 중 오류 발생:', error);
         }
     };
 
