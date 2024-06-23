@@ -218,7 +218,7 @@ function Create_Modal({ setmodalopen, access_Token }) {
                             </div>
                             <div className='form_group'>
                                 <div className='input_with_hint'>
-                                    <label>풀이 시간</label>
+                                    <label className="solvingTime">풀이 시간</label>
                                     <span className={`input_hint ${validationError.time ? 'error_hint' : ''}`}>
                                         (최소 30분 이상 최대 2시간 이내로 선택해주세요.)
                                     </span>
