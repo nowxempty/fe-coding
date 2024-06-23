@@ -1,6 +1,7 @@
 /* 전체 모달 스타일 */
 .ranking-modal {
   position: fixed;
+  font-family: 'Gmarket Sans TTF', sans-serif;
   top: 0;
   left: 0;
   width: 100%;

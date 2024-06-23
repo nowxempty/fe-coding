@@ -27,22 +27,18 @@
 }
 
 .MyPage_Proflie {
-    flex-grow: 2;
-    margin-top: 50px;
-    margin-left: 40px;
-    width: 300px;
-    height: 700px;
-    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
-    
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .MyPage_Proflie_img {
-    width: 300px;
-    height: 300px;
+    display: flex;
+    width: 140px;
+    height: 140px;
     background: linear-gradient(0deg, #d9d9d9 0%, #d9d9d9 100%);
     border-radius: 9999px;
     background: white;
@@ -96,12 +92,12 @@
 }
 
 .MyPage_button {
-    width: 205.33px;
-    height: 48.52px;
+    width: 35%;
+    height: 40px;
     background: #4679fd;
     border-radius: 5px;
     color: white;
-    font-size: 25px;
+    font-size: 18px;
     font-family: 'Gmarket Sans TTF', sans-serif;
     font-weight: 400;
     text-align: center;
@@ -120,8 +116,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly; 
     align-items: center;
-    
 }
 
 .MyPage_RecentWork_title {
@@ -131,9 +127,6 @@
     font-family: Inter;
     font-weight: 400;
     text-align: left;
-    margin-bottom: 20px;
-    margin-left: 90px;
-    padding-left: 0px;
 }
 
 .MyPage_Group38 {
