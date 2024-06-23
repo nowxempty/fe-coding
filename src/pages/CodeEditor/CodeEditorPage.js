@@ -220,12 +220,13 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
                     width="65vw"
                     language={language}
                     value={code}
-                    theme="vs-dark"
+                    theme="light"
                     onChange={(value, event) => setCode(value)}
                   />
                 </div>
                 <div className="result-container">
   <h3>Result</h3>
+  <div className="result-overflow">
   {(() => {
     try {
       const parsedResult = JSON.parse(result);
@@ -239,11 +240,16 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
               ) : (
                 item.testCase && (
                   <>
-                    <p>테스트 케이스:</p>
+                    <p>테스트 케이스</p>
                     <pre>
-                      {Object.entries(item.testCase).map(([key, value]) => (
-                        <div key={key}>{key}: {value}</div>
-                      ))}
+                    {Object.entries(item.testCase).map(([key, value]) => (
+                <div key={key} className="test-case-container">
+                    <div className="test-case-item">
+                        <span className="test-case-input">Input: {key}</span>
+                        <span className="test-case-output">Output: {value}</span>
+                    </div>
+                </div>
+            ))}
                     </pre>
                   </>
                 )
@@ -256,6 +262,7 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
       return <div>{result}</div>;
     }
   })()}
+</div>
 </div>
               </div>
             </div>
