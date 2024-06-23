@@ -30,7 +30,7 @@
 .Login_WebIde {
   font-size: 40px;
   font-weight: bold;
-  
+  font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 .Login_Button {
@@ -86,6 +86,7 @@
   height: 100%; 
   width: 80%;
   font-size: 16px;
+  font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 .Login_CreateAccount {
@@ -100,6 +101,7 @@
   margin-left: 5px;
   color: #4679FD;
   text-decoration: none;
+  font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 .Login_Link:hover {

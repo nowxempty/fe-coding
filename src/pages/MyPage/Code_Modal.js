@@ -60,17 +60,17 @@ const convertSpecialChars = (str) => {
               <div className="problem-section">
                 <span className='code_bold'>문제</span>
                 <br /><br />
-                <span>{problem.context}</span>
+                <span className='code_context'>{problem.context}</span>
               </div>
               <div className="problem-section">
                 <span className='code_bold'>입력</span>
                 <br /><br />
-                <span>{problem.input}</span>
+                <span className='code_context'>{problem.input}</span>
               </div>
               <div className="problem-section">
                 <span className='code_bold'>출력</span>
                 <br /><br />
-                <span>{problem.output}</span>
+                <span className='code_context'>{problem.output}</span>
               </div>
               
             </div>
