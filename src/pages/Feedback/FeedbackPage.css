@@ -150,3 +150,8 @@
   background-color: #4679FD;
   color: #e0e0e0;
 }
+
+.chatting_list {
+  max-height: 95% !important;
+  height: 100%;
+}

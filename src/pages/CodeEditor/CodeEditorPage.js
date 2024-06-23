@@ -240,11 +240,16 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
               ) : (
                 item.testCase && (
                   <>
-                    <p>테스트 케이스:</p>
+                    <p>테스트 케이스</p>
                     <pre>
-                      {Object.entries(item.testCase).map(([key, value]) => (
-                        <div key={key}>{key}: {value}</div>
-                      ))}
+                    {Object.entries(item.testCase).map(([key, value]) => (
+                <div key={key} className="test-case-container">
+                    <div className="test-case-item">
+                        <span className="test-case-input">Input: {key}</span>
+                        <span className="test-case-output">Output: {value}</span>
+                    </div>
+                </div>
+            ))}
                     </pre>
                   </>
                 )
