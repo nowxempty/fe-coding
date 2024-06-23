@@ -101,8 +101,8 @@ const Modal = ({ isOpen, onClose, item, access_Token }) => {
   // 특수 문자 변환 함수
   const convertSpecialChars = (str) => {
     if (!str) return '';
-    const modifiedStr = str.slice(1, -1);
-    return modifiedStr
+    
+    return str
       .replace(/\\n/g, '\n')
       .replace(/\\t/g, '\t')
       .replace(/\\"/g, '"');
