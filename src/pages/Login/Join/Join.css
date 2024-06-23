@@ -23,7 +23,7 @@
   font-size: 70px;
   margin-bottom: 20px;
   font-weight: bold;
-  
+  font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 .Join_submitButton {
@@ -65,6 +65,7 @@
   height: 100%; /*!important : 다른 스타일을 무시하고 해당 스타일을 우선 적용 */
   width: 80%;
   font-size: 30px;
+  font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 .Join_accountLink {
@@ -84,6 +85,7 @@
 .Join_submitButton{
   background: #4679FD;
   color: white;
+  font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 .Join_submitButton:active {

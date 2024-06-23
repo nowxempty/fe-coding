@@ -49,7 +49,7 @@
     height: 70px;
     color: black;
     font-size: 40px;
-    font-family: Inter;
+    font-family: 'Gmarket Sans TTF', sans-serif;
     font-weight: 400;
     text-align: center;
     margin-top: 30px;
@@ -58,7 +58,7 @@
 .MyPage_Lv {
     color: black;
     font-size: 25px;
-    font-family: Inter;
+    font-family: 'Gmarket Sans TTF', sans-serif;
     font-weight: 400;
     margin-top: 10px;
     text-align: center;
@@ -98,7 +98,7 @@
     border-radius: 5px;
     color: white;
     font-size: 18px;
-    font-family: Inter;
+    font-family: 'Gmarket Sans TTF', sans-serif;
     font-weight: 400;
     text-align: center;
     display: flex;
@@ -170,7 +170,7 @@
 .MyPage_Rectangle26 > div {
     color: black;
     font-size: 20px;
-    font-family: Inter;
+    font-family: 'Gmarket Sans TTF', sans-serif;
     font-weight: 400;
     word-wrap: break-word;
     padding: 0 10px;
@@ -208,7 +208,7 @@
     flex: 1;
     color: white;
     font-size: 20px;
-    font-family: Inter;
+    font-family: 'Gmarket Sans TTF', sans-serif;
     font-weight: 400;
     word-wrap: break-word;
     padding: 0 10px;
