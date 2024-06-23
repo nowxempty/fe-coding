@@ -25,7 +25,8 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
                 });
                 const data = await response.json();
                 if (data.results && data.results[0].length > 0) {
-                    setRankings(data.results[0]);
+                    const filteredRankings = data.results[0].filter(ranking => ranking.rank !== 0);
+                    setRankings(filteredRankings);
                     const allRanksAreZero = data.results[0].every(ranking => ranking.rank === 0);
                     if (allRanksAreZero) {
                         setAllFailed(true);
@@ -76,13 +77,14 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
     return (
         <div className="ranking-modal">
             <div className="ranking-modal-content">
+                <button className="ranking-modal-close" onClick={onClose}>×</button>
                 <h2>Ranking</h2>
                 {isLoading ? (
-                    <p>순위가 집계중입니다...</p>
+                    <p className="loading">순위가 집계중입니다...</p>
                 ) : error ? (
-                    <p>{error}</p>
+                    <p className="error">{error}</p>
                 ) : allFailed ? (
-                    <p>모든 사람이 문제를 푸는데 실패했습니다</p>
+                    <p className="all-failed">모든 사람이 문제를 푸는데 실패했습니다</p>
                 ) : (
                     <ul>
                         {rankings.map((ranking, index) => (

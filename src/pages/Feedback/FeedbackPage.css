@@ -103,3 +103,7 @@
   background-color: #4679FD;
   color: #e0e0e0;
 }
+
+.code-container {
+  overflow: auto;
+}
