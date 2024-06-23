@@ -42,9 +42,14 @@
   text-align: center;
 }
 
+ul {
+  padding: 0; /* 리스트의 기본 패딩 제거 */
+  margin: 0; /* 리스트의 기본 마진 제거 */
+}
+
 .ranking-item {
   display: flex;
-  justify-content: center; /* 중앙 정렬 */
+  justify-content: space-between; /* 요소 간 균일한 간격 */
   align-items: center;
   background: #f8f8f8;
   padding: 15px;
@@ -52,6 +57,9 @@
   margin-bottom: 10px;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
+  width: 100%; /* 전체 너비 사용 */
+  max-width: 550px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
 }
 
 .ranking-item:hover {
@@ -63,7 +71,16 @@
   font-size: 14px;
   font-weight: 500;
   color: #333333;
-  margin: 0 5px; /* 약간의 여백 추가 */
+  flex: 1; /* 각 요소가 균일한 너비를 가짐 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.ranking-item .rank {
+  flex: 0 0 50px; /* 랭크의 고정 너비 */
+}
+
+.ranking-item .profile-img {
+  flex: 0 0 50px; /* 이미지의 고정 너비 */
 }
 
 /* 랭킹 아이템 프로필 이미지 스타일 */
@@ -72,19 +89,7 @@
   height: 45px;
   border-radius: 50%;
   background: #e0e0e0;
-  margin: 0 10px; /* 좌우 여백 추가 */
-}
-
-/* 전체 모달 닫기 버튼 스타일 */
-.ranking-modal-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: #333333;
+  margin-right: 10px; /* 오른쪽 여백 추가 */
 }
 
 /* 로딩, 에러, 모두 실패 텍스트 스타일 */
