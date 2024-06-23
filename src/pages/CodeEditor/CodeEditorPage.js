@@ -220,12 +220,13 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
                     width="65vw"
                     language={language}
                     value={code}
-                    theme="vs-dark"
+                    theme="light"
                     onChange={(value, event) => setCode(value)}
                   />
                 </div>
                 <div className="result-container">
   <h3>Result</h3>
+  <div className="result-overflow">
   {(() => {
     try {
       const parsedResult = JSON.parse(result);
@@ -256,6 +257,7 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
       return <div>{result}</div>;
     }
   })()}
+</div>
 </div>
               </div>
             </div>
