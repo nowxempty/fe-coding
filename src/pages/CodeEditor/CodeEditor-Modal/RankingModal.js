@@ -77,7 +77,6 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
     return (
         <div className="ranking-modal">
             <div className="ranking-modal-content">
-                <button className="ranking-modal-close" onClick={onClose}>×</button>
                 <h2>Ranking</h2>
                 {isLoading ? (
                     <p className="loading">순위가 집계중입니다...</p>
@@ -89,8 +88,8 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
                     <ul>
                         {rankings.map((ranking, index) => (
                             <li key={index} className="ranking-item">
-                                <span>Rank: {ranking.rank}</span>
-                                <img src={ranking.profileImage} alt={profileIcon} />
+                                <span className="rank">{ranking.rank}</span>
+                                <img className="profile-img" src={ranking.profileImage} alt={profileIcon} />
                                 <span>{ranking.username}</span>
                                 <span>Level: {ranking.level}</span>
                                 <span>Extra EXP: {ranking.extraEXP}</span>

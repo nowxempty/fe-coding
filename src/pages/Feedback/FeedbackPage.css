@@ -4,6 +4,7 @@
   flex-direction: column;
   height: 100vh;
   background-color: white;
+  font-family: 'Gmarket Sans TTF', sans-serif; /* 폰트 통일성 유지 */
 }
 
 .feedback-header {
@@ -14,6 +15,44 @@
   padding: 0 20px;
   height: 35px;
   color: white;
+}
+
+.timer {
+  font-size: 20px;
+  font-family: 'Gmarket Sans TTF', sans-serif;
+  font-weight: 300;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.header-button {
+  margin: 0 10px;
+  padding: 5px 10px;
+  background-color: #D9D9D9;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Gmarket Sans TTF', sans-serif;
+  font-weight: 500;
+}
+
+.profile {
+  background: linear-gradient(0deg, #D9D9D9 0%, #D9D9D9 100%);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.feedback-header-left {
+  display: flex;
+  align-items: center;
 }
 
 .feedback-header-left button {
@@ -90,6 +129,12 @@
   font-weight: 700;
 }
 
+.code-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* 부모 컨테이너는 overflow hidden으로 설정 */
+}
+
 .code-container pre {
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -97,13 +142,11 @@
   padding: 10px;
   border-radius: 5px;
   font-family: 'Courier New', Courier, monospace;
+  overflow: auto; /* 코드 부분에만 overflow auto 적용 */
+  flex: 1; /* 부모 컨테이너 내에서 남은 공간을 차지하도록 설정 */
 }
 
 .selected-button {
   background-color: #4679FD;
   color: #e0e0e0;
-}
-
-.code-container {
-  overflow: auto;
 }
