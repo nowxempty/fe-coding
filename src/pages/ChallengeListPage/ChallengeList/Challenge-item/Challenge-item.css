@@ -17,7 +17,7 @@
     justify-content: space-between;
     background-color: #f1f1f1;
     padding: 10px;
-    font-weight: bold;
+    /* font-weight: bold; */
     font-size: 18px;
     border-bottom: 1px solid #ccc;
     height: 45px;
@@ -43,7 +43,7 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    font-weight: bold;
+    /* font-weight: bold; */
     align-items: center;
     font-size: 18px;
     height: 60px;
@@ -68,7 +68,7 @@
 }
 
 .Challenge_list_item {
-    font-weight: normal;
+    /* font-weight: normal; */
 }
 
 .Challenge_list_item div,
@@ -89,7 +89,7 @@
 
 .Challenge_list .Challenge_list_item .title,
 .Challenge_list .Challenge_list_item .creator {
-    font-weight: 600;
+    /* font-weight: 600; */
 }
 
 .Challenge_item .Challenge_header .title,
