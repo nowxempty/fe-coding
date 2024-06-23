@@ -1,7 +1,7 @@
 /* Chatting.css */
 .chatting_list {
     position: relative; 
-    border-radius: 20px;
+    border-radius: 10px;
     border: 1.5px solid #d2d2d2; 
     min-height: 30vh; 
     max-height: 30vh;
@@ -9,6 +9,7 @@
     flex-direction: column;
     padding: 14px;
     gap: 10px;
+    
 }
 
 
@@ -19,6 +20,7 @@
     padding: 10px;
     display: flex; 
     flex-direction: column; 
+    
 }
 
 .message {

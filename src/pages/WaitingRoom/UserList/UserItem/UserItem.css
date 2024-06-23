@@ -16,13 +16,20 @@
 .user-profile-image {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    margin-bottom: 10px;
+}
+
+.user-profile-image :nth-child(1){
+    display: flex;
+    position: relative;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 50px;
 }
 
 .user-item h3 {
     margin: 0;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     white-space: nowrap; 
     color: black;
 }
@@ -47,6 +54,9 @@
     border: 1px solid #4679FD;
     font-size: 1rem;
     font-weight: 650;
+    margin-top: 0;
+    width: 90.805px;
+    height: 26.477px;
 }
 
 .user-status.not-ready {
@@ -54,4 +64,5 @@
     background-color: #4679FD;
     font-size: 1rem;
     font-weight: 650;
+    margin-top: 0;
 }

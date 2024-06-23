@@ -8,7 +8,6 @@
   
   .Header {
     width: 100%;
-    max-width: 1440px; /* 최대 너비 설정 */
     height: 60px;
     display: flex;
     justify-content: space-between; /* 가로로 일렬 배치하고 요소들 사이에 공간 배분 */
@@ -22,15 +21,16 @@
     cursor: pointer;
     display: flex;
     width: 150px;
-    height: 150px;
+    height: 60px;
+  }
+  .WebIde img{
+    height: 100px;
+    width: 100px  ;
   }
   
-  .Level1 {
-    color: #919191;
-    font-size: 15px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    word-wrap: break-word;
+
+  .Header_rightsection{
+    display: flex;
   }
   
   .Header_user_box, .Header_Login_box {
@@ -41,21 +41,6 @@
   }
   .Header_user_box * {
     margin-left: 20px;
-  }
-  .Header_user_box_Text {
-    color: black;
-    font-size: 20px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    word-wrap: break-word;
-    margin-left: 10px; /* 이미지와 텍스트 사이의 간격 */
-  }
-  
-  .Header_user_box_Image {
-    width: 50px;
-    height: 50px;
-    background: white;
-    border-radius: 9999px;
   }
   
   .Logout, .Header_Login {
@@ -77,10 +62,12 @@
     justify-content: center;
     align-items: center;
    }
+
    .navi_btn button {
     background: white;
     border: none;
    } 
+   
    .navi_btn button .icon{
     width: 40px;
     height: 50px;

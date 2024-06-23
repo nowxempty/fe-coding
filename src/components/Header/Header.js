@@ -35,6 +35,7 @@ export default function Header({ access_Token, setAccessToken}) {
         <div className="WebIde" onClick={() => Main()} >
           <img src={Logo} alt="logo" />
         </div>
+        <div className='Header_rightsection'>
         {accessToken ? (
           <div className="Logout" onClick={() => nav_Logout()}>로그아웃</div>
         ) : (
@@ -51,7 +52,9 @@ export default function Header({ access_Token, setAccessToken}) {
             <SlArrowRight className="icon" />
           </button>
         </div>
-      </div>
+ 
+        </div>
+       </div>
     </nav>
 
   )
