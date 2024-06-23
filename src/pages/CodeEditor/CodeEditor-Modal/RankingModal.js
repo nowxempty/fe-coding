@@ -9,8 +9,9 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
     const [allFailed, setAllFailed] = useState(false);
 
     useEffect(() => {
+        let fetchTimer;
         let closeTimer;
-    
+
         const fetchRankings = async () => {
             setIsLoading(true);
             setError(null);  // 새로 요청을 시작할 때 에러 상태 초기화
@@ -34,29 +35,23 @@ const RankingModal = ({ isOpen, onClose, roomId, problemId, access_Token }) => {
                     setError('순위가 집계중입니다...');
                 }
                 setIsLoading(false);
-    
-                if (data.results && data.results[0].length === 0) {
-                    // 데이터가 없으면 5초 후에 다시 시도
-                    setTimeout(fetchRankings, 1000);
-                }
             } catch (error) {
                 console.error('Error fetching rankings', error);
                 setError('Error fetching rankings.');
                 setIsLoading(false);
-                // 에러가 발생해도 5초 후에 다시 시도
-                setTimeout(fetchRankings, 1000);
             }
         };
-    
+
         if (isOpen) {
             fetchRankings();
+            fetchTimer = setInterval(fetchRankings, 5000);
         }
-    
+
         return () => {
+            clearInterval(fetchTimer);
             clearTimeout(closeTimer);
         };
     }, [isOpen, roomId, problemId, access_Token]);
-    
 
     useEffect(() => {
         let closeTimer;
