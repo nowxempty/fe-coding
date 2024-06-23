@@ -20,11 +20,7 @@ const Rank_list = ({access_Token}) => {
                     
                 }
                 const data = await response.json();
-                
-                // JSON 데이터를 콘솔 로그로 출력
-                console.log('API 응답 데이터:', data);
 
-                // 순위 데이터를 상태에 저장
                 setRankings(data.results[0]);
             } catch (error) {
                 

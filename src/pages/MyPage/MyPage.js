@@ -79,7 +79,6 @@ function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserI
     };
 
     const handleinformClick2 = (item) => {
-        console.log(`Clicked on roomId: ${item.roomId}, problemId: ${item.problemId}`);
         openModal(item);
     };
 

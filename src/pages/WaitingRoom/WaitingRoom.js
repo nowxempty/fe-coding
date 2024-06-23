@@ -91,7 +91,6 @@ const WaitingRoom = ({ access_Token }) => {
                     }
                 });
                 const result = await response.json();
-                console.log('API 응답:', result);
                 const user = result.results[0];
                 const userData = {
                     id: user.userLoginId,
@@ -103,7 +102,6 @@ const WaitingRoom = ({ access_Token }) => {
                     profileImage: user.profileImage
                 };
                 setUserData(userData);
-                console.log('user.name:', userData.name, 'hostName:', hostName);
                 setIsHost(userData.name === hostName);
             } catch (error) {
                 console.error('API 요청 중 오류 발생:', error);
