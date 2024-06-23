@@ -80,8 +80,6 @@ function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserI
 
     const handleinformClick2 = (item) => {
         console.log(`Clicked on roomId: ${item.roomId}, problemId: ${item.problemId}`);
-        Get_User_code(item.roomId, item.problemId, access_Token, user_name);
-        Get_Problem(item.roomId, item.problemId, access_Token, setProblem, user_name);
         openModal(item);
     };
 
@@ -152,7 +150,7 @@ function MyPage({ userInfoms, access_Token, setProblem, setAccessToken, setUserI
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 item={item}
-                user_name={user_name}
+                access_Token ={access_Token}
             />
         </div>
 
