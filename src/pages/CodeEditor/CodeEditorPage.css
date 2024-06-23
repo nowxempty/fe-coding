@@ -4,6 +4,7 @@
     flex-direction: column;
     height: 100vh;
     background-color: white;
+    font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 .top-header {
@@ -151,4 +152,14 @@
     overflow: auto;
     height: 20vh;
     margin: 0;
+}
+
+.result-container {
+    height: 27vh;
+}
+
+.problem-container h3 {
+    font-weight: 700;
+    color: #4679FD;
+    font-family: 'Gmarket Sans TTF', sans-serif;
 }

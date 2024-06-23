@@ -13,8 +13,9 @@
   align-items: center;
 }
 
-.Login_leftSction h1{
-  font-size: 300px;
+.Login_leftSction img{
+  width: 200%;
+  height: 100%;
 }
 
 .Login_Body {
@@ -25,6 +26,7 @@
   width: 35%;
   height: 100vh;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  gap:10px;
 }
 
 .Login_WebIde {
@@ -36,7 +38,7 @@
 .Login_Button {
   color: white;
   background: #4679FD ;
-  width: 255px !important;
+  width: 83%!important;
   height: 35px;
   padding: 0;
   border: 0;
@@ -50,6 +52,8 @@
   align-items: center;
   justify-content: center;
   width: 70%;
+  margin-top: 10px;
+  gap:20px;
 }
 
 .Login_container {
@@ -59,7 +63,7 @@
   justify-content: space-evenly;
   height: 13vh;
   width: 100%;
-  
+  gap:3px;
 }
 
 .Login_Id, .Login_Pw {
@@ -88,9 +92,6 @@
   font-size: 16px;
 }
 
-.Login_CreateAccount {
-  margin-top: 10px;
-}
 
 .Login_CreateAccount span, .Login_CreateAccount .Login_Link{
   font-size: 15px;

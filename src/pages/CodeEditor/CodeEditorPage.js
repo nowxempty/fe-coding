@@ -193,14 +193,18 @@ const CodeEditorPage = ({ userId, roomId, access_Token }) => {
               <div className="problem-container">
                 <h2>문제</h2>
                 <h3>{problems[0][currentProblemIndex]?.title}</h3>
+                <hr />
                 <div>{problems[0][currentProblemIndex]?.context}</div>
                 <div className="Input-Output">
                   <h3>입력</h3>
+                  <hr />
                   <div>{problems[0][currentProblemIndex]?.input}</div>
                   <h3>출력</h3>
+                  <hr />
                   <div>{problems[0][currentProblemIndex]?.output}</div>
                 </div>
                 <h3>입출력 예시</h3>
+                <hr />
                 <div>
                   {problems[0][currentProblemIndex]?.testCases.map((testCase, index) => (
                     <li key={index}>
