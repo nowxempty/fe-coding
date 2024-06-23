@@ -1,4 +1,3 @@
-// Create_Modal.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from "../../../components/Button/Button";
@@ -7,29 +6,23 @@ import SilverIcon from '../../../components/Icon/SilverIcon';
 import GoldIcon from '../../../components/Icon/GoldIcon';
 import "./Create_Modal.css";
 
-const problems = {
-    Bronze: Array.from({ length: 10 }, (_, i) => `Bronze 문제 ${i + 1}`),
-    Silver: Array.from({ length: 10 }, (_, i) => `Silver 문제 ${i + 1}`),
-    Gold: Array.from({ length: 10 }, (_, i) => `Gold 문제 ${i + 1}`)
-};
-
 const difficulties = {
-    Bronze: 1,
-    Silver: 2,
-    Gold: 3
+    BRONZE: 1,
+    SILVER: 2,
+    GOLD: 3
 };
 
-function Create_Modal({ setmodalopen,access_Token }) {
+function Create_Modal({ setmodalopen, access_Token }) {
     const [roomName, setRoomName] = useState('');
     const [hour, setHour] = useState('0');
     const [minute, setMinute] = useState('0');
     const [description, setDescription] = useState('');
     const [level1, setLevel1] = useState('');
-    const [question1, setQuestion1] = useState('');
+    const [question1, setQuestion1] = useState({ title: '', id: null, level: '' });
     const [level2, setLevel2] = useState('선택 안함');
-    const [question2, setQuestion2] = useState('');
+    const [question2, setQuestion2] = useState({ title: '', id: null, level: '' });
     const [level3, setLevel3] = useState('선택 안함');
-    const [question3, setQuestion3] = useState('');
+    const [question3, setQuestion3] = useState({ title: '', id: null, level: '' });
     const [averageDifficulty, setAverageDifficulty] = useState('');
     const [error, setError] = useState('');
     const [response, setResponse] = useState(null);
@@ -40,7 +33,38 @@ function Create_Modal({ setmodalopen,access_Token }) {
         description: false
     });
 
+    const [bronzeProblems, setBronzeProblems] = useState([]);
+    const [silverProblems, setSilverProblems] = useState([]);
+    const [goldProblems, setGoldProblems] = useState([]);
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchProblems = async (rank, setProblems) => {
+            try {
+                const response = await fetch(`https://salgoo9.site/api/problem?rank=${rank}`, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'access': access_Token
+                    }
+                });
+                const data = await response.json();
+                if (data.status.code === 200) {
+                    setProblems(data.results[0]);
+                } else {
+                    console.error('Failed to fetch problems:', data.status.message);
+                }
+            } catch (error) {
+                console.error('Error fetching problems:', error);
+            }
+        };
+
+        fetchProblems('BRONZE', setBronzeProblems);
+        fetchProblems('SILVER', setSilverProblems);
+        fetchProblems('GOLD', setGoldProblems);
+    }, [access_Token]);
 
     const handleClose = () => {
         setmodalopen(false);
@@ -63,7 +87,7 @@ function Create_Modal({ setmodalopen,access_Token }) {
             newValidationError.time = true;
             valid = false;
         }
-        if (!question1) {
+        if (!question1.title) {
             newValidationError.question1 = true;
             valid = false;
         }
@@ -79,25 +103,17 @@ function Create_Modal({ setmodalopen,access_Token }) {
             return;
         }
 
-        const selectedQuestions = [question1, question2, question3].filter(q => q && q !== '선택 안함');
-        const totalDifficulty = selectedQuestions.reduce((acc, q) => {
-            if (q.includes('Bronze')) return acc + difficulties.Bronze;
-            if (q.includes('Silver')) return acc + difficulties.Silver;
-            if (q.includes('Gold')) return acc + difficulties.Gold;
-            return acc;
-        }, 0);
+        const selectedQuestions = [question1, question2, question3].filter(q => q.id);
+        const totalDifficulty = selectedQuestions.reduce((acc, q) => acc + difficulties[q.level.toUpperCase()], 0);
         const average = totalDifficulty / selectedQuestions.length;
-        const roundedAverage = Math.round(average).toFixed(1) * 1;
+        const roundedAverage = Math.round(average * 10) / 10;
 
         const newChallenge = {
             roomTitle: roomName,
             averageDifficulty: roundedAverage,
             description,
             duration: (parseInt(hour) * 60) + parseInt(minute),
-            problems: selectedQuestions.map(q => {
-                const match = q.match(/\d+/); // 문제 번호를 추출하는 정규식
-                return match ? parseInt(match[0]) : null;
-            })
+            problems: selectedQuestions.map(q => q.id)
         };
 
         console.log('보낼 JSON:', JSON.stringify(newChallenge, null, 2));
@@ -127,32 +143,54 @@ function Create_Modal({ setmodalopen,access_Token }) {
     };
 
     const calculateAverageDifficulty = () => {
-        const selectedQuestions = [question1, question2, question3].filter(q => q && q !== '선택 안함');
-        const totalDifficulty = selectedQuestions.reduce((acc, q) => {
-            if (q.includes('Bronze')) return acc + difficulties.Bronze;
-            if (q.includes('Silver')) return acc + difficulties.Silver;
-            if (q.includes('Gold')) return acc + difficulties.Gold;
-            return acc;
-        }, 0);
+        const selectedQuestions = [question1, question2, question3].filter(q => q.id);
+        if (selectedQuestions.length === 0) return null;
+        const totalDifficulty = selectedQuestions.reduce((acc, q) => acc + difficulties[q.level.toUpperCase()], 0);
         const average = totalDifficulty / selectedQuestions.length;
         const roundedAverage = Math.round(average);
-        if (roundedAverage === 1) return <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <BronzeIcon />
-            <p style={{ margin: '0', color: '#a57939' }}>Bronze</p>
-        </div>;
-        if (roundedAverage === 2) return <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <SilverIcon />
-            <p style={{ margin: '0', color: '#8a8a8a' }}>Silver</p>
-        </div>;
-        if (roundedAverage === 3) return <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <GoldIcon />
-            <p style={{ margin: '0', color: '#cbbe2a' }}>Gold</p>
-        </div>;
+        if (roundedAverage === 1) return (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <BronzeIcon />
+                <p style={{ margin: '0', color: '#a57939' }}>Bronze</p>
+            </div>
+        );
+        if (roundedAverage === 2) return (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <SilverIcon />
+                <p style={{ margin: '0', color: '#8a8a8a' }}>Silver</p>
+            </div>
+        );
+        if (roundedAverage === 3) return (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <GoldIcon />
+                <p style={{ margin: '0', color: '#cbbe2a' }}>Gold</p>
+            </div>
+        );
     };
 
     useEffect(() => {
         setAverageDifficulty(calculateAverageDifficulty());
     }, [question1, question2, question3]);
+
+    const getProblems = (level) => {
+        switch (level) {
+            case 'BRONZE':
+                return bronzeProblems;
+            case 'SILVER':
+                return silverProblems;
+            case 'GOLD':
+                return goldProblems;
+            default:
+                return [];
+        }
+    };
+
+    const handleQuestionSelect = (num, level, title) => {
+        const problems = getProblems(level);
+        const selectedProblem = problems.find(problem => problem.title === title);
+        const setQuestion = eval(`setQuestion${num}`);
+        setQuestion({ title: selectedProblem.title, id: selectedProblem.id, level });
+    };
 
     return (
         <div className='create_modal'>
@@ -220,21 +258,21 @@ function Create_Modal({ setmodalopen,access_Token }) {
                                         onChange={(e) => {
                                             const setLevel = eval(`setLevel${num}`);
                                             setLevel(e.target.value);
-                                            eval(`setQuestion${num}`)('선택 안함');
+                                            eval(`setQuestion${num}`)({ title: '', id: null, level: '' });
                                         }}
                                     >
                                         <option value="">난이도 선택</option>
-                                        <option value="Bronze">Bronze</option>
-                                        <option value="Silver">Silver</option>
-                                        <option value="Gold">Gold</option>
+                                        <option value="BRONZE">BRONZE</option>
+                                        <option value="SILVER">SILVER</option>
+                                        <option value="GOLD">GOLD</option>
                                     </select>
                                     <select
-                                        value={eval(`question${num}`)}
-                                        onChange={(e) => eval(`setQuestion${num}`)(e.target.value)}
+                                        value={eval(`question${num}`).title}
+                                        onChange={(e) => handleQuestionSelect(num, eval(`level${num}`), e.target.value)}
                                     >
                                         <option value="">문제 선택</option>
-                                        {eval(`level${num}`) && eval(`level${num}`) !== '선택 안함' && problems[eval(`level${num}`)].map((problem, index) => (
-                                            <option key={index} value={problem}>{problem}</option>
+                                        {getProblems(eval(`level${num}`)).map((problem, index) => (
+                                            <option key={index} value={problem.title}>{problem.title}</option>
                                         ))}
                                     </select>
                                 </div>

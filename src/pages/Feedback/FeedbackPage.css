@@ -151,7 +151,6 @@
   color: #e0e0e0;
 }
 
-.chatting_list {
-  max-height: 95% !important;
-  height: 100%;
+.chat-container .chatting_list{
+  height: 95%;
 }
