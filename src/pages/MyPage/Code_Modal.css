@@ -69,10 +69,16 @@
 
 .codeEditor {
   height: 100%;
+  font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 .code_bold{
   font-weight: bold;
+  font-family: 'Gmarket Sans TTF', sans-serif;
+}
+
+.code_context{
+  font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 /* ProblemDetails.css */

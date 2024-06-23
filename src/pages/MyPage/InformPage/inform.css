@@ -53,6 +53,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 20px;
+    font-family: 'Gmarket Sans TTF', sans-serif;
 }
 .Inform_info-container, .Inform_withdraw-section {
     width: 100%;
@@ -81,6 +82,7 @@
 .Inform_label {
     margin-bottom: 5px;
     font-size: 20px;
+    font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 .Inform_input-container {
@@ -101,6 +103,7 @@
     vertical-align: middle;
     font-size: 20px;
     line-height: normal;
+    font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 .Inform_save-button-container {
@@ -111,6 +114,11 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    font-family: 'Gmarket Sans TTF', sans-serif;
+}
+
+.Inform_withdraw-instruction{
+    font-family: 'Gmarket Sans TTF', sans-serif;
 }
 
 .Inform_Rectangle12 {
