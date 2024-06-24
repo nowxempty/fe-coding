@@ -146,6 +146,10 @@
   flex: 1; /* 부모 컨테이너 내에서 남은 공간을 차지하도록 설정 */
 }
 
+.code-container h2 {
+  font-weight: 500;
+}
+
 .selected-button {
   background-color: #4679FD;
   color: #e0e0e0;
