@@ -15,7 +15,7 @@
 }
 
 .dropdown .Button :first-child{
-    color:black;
+    color:rgb(61, 9, 9);
     font-size: 18px;
 }
 
@@ -62,4 +62,5 @@
     background-color: #ededed;
     font-size: 17px;
     padding-left: 15px;
+    font-family: 'Gmarket Sans TTF', sans-serif;
 }

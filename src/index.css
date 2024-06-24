@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* src/index.css */
+@import url('./styles/fonts.css');
+
+body {
+    font-family: 'Gmarket Sans TTF', sans-serif;
+}
+
+/* 기존 스타일 설정 유지 */
+h1 {
+    font-weight: 700; /* Bold */
+}
+
+h2 {
+    font-weight: 500; /* Medium */
+}
+
+p {
+    font-weight: 300; /* Light */
+}
